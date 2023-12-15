@@ -1,0 +1,57 @@
+Converting script [1 / 6]	[\GameData\Script\ObjectDetect.cs]
+	Fragments : 2
+		[ 0] : Line:   19	InputProperty mousePosition       
+		[ 1] : Line:   40	InputProperty mousePosition       
+
+Converting script [2 / 6]	[\EvolveGames\RealisticFPSController\Scripts\HandsHolder.cs]
+	Fragments : 2
+		[ 0] : Line:   49	InputMethod   GetKeyDown          	(KeyCode.LeftShift)
+		[ 1] : Line:   50	InputMethod   GetKeyUp            	(KeyCode.LeftShift)
+
+Converting script [3 / 6]	[\EvolveGames\RealisticFPSController\Scripts\HandsSmooth.cs]
+	Fragments : 5
+		[ 0] : Line:   41	InputMethod   GetAxis             	("Mouse X")
+		[ 1] : Line:   42	InputMethod   GetAxis             	("Mouse Y")
+		[ 2] : Line:   43	InputMethod   GetAxis             	("Horizontal")
+		[ 3] : Line:   44	InputMethod   GetAxis             	("Vertical")
+		[ 4] : Line:   57	InputMethod   GetKey              	(CroughKey)
+
+Converting script [4 / 6]	[\EvolveGames\RealisticFPSController\Scripts\ItemChange.cs]
+	Fragments : 3
+		[ 0] : Line:   37	InputMethod   GetAxis             	("Mouse ScrollWheel")
+		[ 1] : Line:   42	InputMethod   GetAxis             	("Mouse ScrollWheel")
+		[ 2] : Line:   47	InputMethod   GetKeyDown          	(KeyCode.H)
+
+Converting script [5 / 6]	[\EvolveGames\RealisticFPSController\Scripts\MENU.cs]
+	Fragments : 5
+		[ 0] : Line:   17	InputMethod   GetKeyDown          	(BackKey)
+		[ 1] : Line:   23	Other mod.	[Cursor.visible]
+		[ 2] : Line:   24	Other mod.	[Cursor.lockState]
+		[ 3] : Line:   32	Other mod.	[Cursor.visible]
+		[ 4] : Line:   33	Other mod.	[Cursor.lockState]
+
+Converting script [6 / 6]	[\EvolveGames\RealisticFPSController\Scripts\PlayerController.cs]
+	Fragments : 11
+		[ 0] : Line:   70	Other mod.	[Cursor.lockState]
+		[ 1] : Line:   71	Other mod.	[Cursor.visible]
+		[ 2] : Line:   91	InputMethod   GetKey              	(KeyCode.LeftShift)
+		[ 3] : Line:   92	InputMethod   GetAxis             	("Vertical")
+		[ 4] : Line:   93	InputMethod   GetAxis             	("Horizontal")
+		[ 5] : Line:   99	InputMethod   GetButton           	("Jump")
+		[ 6] : Line:  110	Other mod.	[Cursor.lockState]
+		[ 7] : Line:  112	InputMethod   GetAxis             	("Mouse Y")
+		[ 8] : Line:  113	InputMethod   GetAxis             	("Mouse X")
+		[ 9] : Line:  124	InputMethod   GetKey              	(CroughKey)
+		[10] : Line:  165	InputMethod   GetAxis             	("Vertical")
+
+
+6 scripts modified!
+Overwriting actual scripts...
+	[0 / 6] from  [D:/Projects/PumpingSimulator/PumpingSimulator/CF2-Data/Script-Backups/2023-12-15-11-38\Assets-After/\GameData\Script\ObjectDetect.cs] to [D:/Projects/PumpingSimulator/PumpingSimulator/Assets/\GameData\Script\ObjectDetect.cs]
+	[1 / 6] from  [D:/Projects/PumpingSimulator/PumpingSimulator/CF2-Data/Script-Backups/2023-12-15-11-38\Assets-After/\EvolveGames\RealisticFPSController\Scripts\HandsHolder.cs] to [D:/Projects/PumpingSimulator/PumpingSimulator/Assets/\EvolveGames\RealisticFPSController\Scripts\HandsHolder.cs]
+	[2 / 6] from  [D:/Projects/PumpingSimulator/PumpingSimulator/CF2-Data/Script-Backups/2023-12-15-11-38\Assets-After/\EvolveGames\RealisticFPSController\Scripts\HandsSmooth.cs] to [D:/Projects/PumpingSimulator/PumpingSimulator/Assets/\EvolveGames\RealisticFPSController\Scripts\HandsSmooth.cs]
+	[3 / 6] from  [D:/Projects/PumpingSimulator/PumpingSimulator/CF2-Data/Script-Backups/2023-12-15-11-38\Assets-After/\EvolveGames\RealisticFPSController\Scripts\ItemChange.cs] to [D:/Projects/PumpingSimulator/PumpingSimulator/Assets/\EvolveGames\RealisticFPSController\Scripts\ItemChange.cs]
+	[4 / 6] from  [D:/Projects/PumpingSimulator/PumpingSimulator/CF2-Data/Script-Backups/2023-12-15-11-38\Assets-After/\EvolveGames\RealisticFPSController\Scripts\MENU.cs] to [D:/Projects/PumpingSimulator/PumpingSimulator/Assets/\EvolveGames\RealisticFPSController\Scripts\MENU.cs]
+	[5 / 6] from  [D:/Projects/PumpingSimulator/PumpingSimulator/CF2-Data/Script-Backups/2023-12-15-11-38\Assets-After/\EvolveGames\RealisticFPSController\Scripts\PlayerController.cs] to [D:/Projects/PumpingSimulator/PumpingSimulator/Assets/\EvolveGames\RealisticFPSController\Scripts\PlayerController.cs]
+
+Overwriting COMPLETED!
