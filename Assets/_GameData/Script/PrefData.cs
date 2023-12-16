@@ -6,6 +6,7 @@ public static class PrefData
 {
     public static string GameTask= "GameTask";
     public static string Money = "money";
+    public static string PumpPurchase = "PumpPurchase";
    
 
 
@@ -35,8 +36,6 @@ public static class PrefData
 
     }
 
-
-
     public static int GetCash()
     {
         return PlayerPrefs.GetInt(Money);
@@ -61,4 +60,31 @@ public static class PrefData
         return GetCash();
 
     }
+
+
+    public static int GetPumpPurchased()
+    {
+        return PlayerPrefs.GetInt(PumpPurchase);
+    }
+    /// <summary>
+    /// Set Level index if boolean is true then You can add index in Current Level ....
+    /// else you can set that index as level number .
+    /// </summary>
+    /// <returns></returns>
+    public static int SetPumpPurchased(bool check, int increase)
+    {
+
+        if (check)
+        {
+            PlayerPrefs.SetInt(PumpPurchase, GetPumpPurchased() + increase);
+        }
+        else
+        {
+            PlayerPrefs.SetInt(PumpPurchase, increase);
+        }
+
+        return GetPumpPurchased();
+
+    }
+
 }

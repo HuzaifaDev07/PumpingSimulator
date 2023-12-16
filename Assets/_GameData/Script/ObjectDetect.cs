@@ -7,10 +7,14 @@ public class ObjectDetect : MonoBehaviour
     [SerializeField] PlayerManager playerManager;
     public string Trash = "Trash";
     public string Dustbin = "Dustbin";
+    public string PumpTag = "Pumphandle";
+    public string Car = "Car";
     public LayerMask DetectLayer;
     public float raycastDistance = 5f;
     public GameObject DetectObject;
+    public GameObject CarDetectRef;
     UiManager _UiManager;
+
 
     private void Start()
     {
@@ -46,6 +50,28 @@ public class ObjectDetect : MonoBehaviour
             else
             {
                 _UiManager.DropTrashBtn.SetActive(false);
+            }
+
+            if (hit.collider.CompareTag(PumpTag) && PrefData.GetTask() > 3 && !GameManager.Instance.PumpPick)
+            {
+                Debug.Log("Object with tag '" + hit.collider.gameObject.name + "' detected!");
+                DetectObject = hit.collider.gameObject;
+                _UiManager.PumpHoldBtn.SetActive(true);
+            }
+            else
+            {
+                _UiManager.PumpHoldBtn.SetActive(false);
+            }
+            if (hit.collider.CompareTag(Car) && PrefData.GetTask() > 3 && GameManager.Instance.PumpPick)
+            {
+                Debug.Log("Object with tag '" + hit.collider.gameObject.name + "' detected!");
+                CarDetectRef = hit.collider.gameObject;
+                _UiManager.putPumpinCar.SetActive(true);
+
+            }
+            else
+            {
+                _UiManager.putPumpinCar.SetActive(false);
             }
         }
     }

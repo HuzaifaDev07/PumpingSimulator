@@ -11,6 +11,19 @@ TagManager:
   - MainCar
   - Seller
   - Station
+  - PumpCollider
+  - conveyer
+  - scannerObj
+  - Apartment
+  - tutorialRotationPoint
+  - fillingArea
+  - pump
+  - scanner
+  - computer
+  - WashStation
+  - Pumphandle
+  - FuelPlace
+  - Car
   layers:
   - Default
   - TransparentFX
