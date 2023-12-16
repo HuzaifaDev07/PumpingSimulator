@@ -79,7 +79,9 @@ public class GameManager : MonoBehaviour
     {
         if (PrefData.GetPumpPurchased() > 0)
         {
+            _uiManager.ObjectiveTxt.transform.parent.gameObject.SetActive(false);
             FuelName.SetActive(true);
+            _uiManager.StationNameInput.text = PlayerPrefs.GetString("PumpName");
         }
     }
 
@@ -126,6 +128,8 @@ public class GameManager : MonoBehaviour
     {
         PrefData.SetTask(true, 1);
         PlayerPrefs.SetString("PumpName", _uiManager.StationNameInput.text);
+        _uiManager.StationNameInput.text = PlayerPrefs.GetString("PumpName");
+
         HudCanvas.SetActive(true);
         _uiManager.PumpNamePanel.SetActive(false);
         _uiManager.BuyFuelStation.SetActive(false);

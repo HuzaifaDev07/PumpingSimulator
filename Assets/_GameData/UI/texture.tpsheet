@@ -1,0 +1,31 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# https://assetstore.unity.com/packages/tools/sprite-management/texturepacker-importer-16641
+#
+# created with Free texture packer v0.6.7
+# http://free-tex-packer.com
+#
+:format=40300
+:texture=texture.png
+:size=1024x512
+:pivotpoints=enabled
+:borders=disabled
+
+hader .png;2;265;637;245; 0.5;0.5; 0;0;0;0
+jo .png;2;84;178;177; 0.5;0.5; 0;0;0;0
+ball .png;2;6;74;74; 0.5;0.5; 0;0;0;0
+pause button .png;80;11;70;69; 0.5;0.5; 0;0;0;0
+coin .png;154;24;56;56; 0.5;0.5; 0;0;0;0
+coin bar .png;184;113;266;148; 0.5;0.5; 0;0;0;0
+green button .png;214;12;291;97; 0.5;0.5; 0;0;0;0
+yellow button .png;509;12;291;97; 0.5;0.5; 0;0;0;0
+runing .png;454;127;134;134; 0.5;0.5; 0;0;0;0
+bar 2 .png;804;462;179;48; 0.5;0.5; 0;0;0;0
+bar .png;643;481;128;29; 0.5;0.5; 0;0;0;0
+emt bar .png;804;410;179;48; 0.5;0.5; 0;0;0;0
+plus .png;592;217;44;44; 0.5;0.5; 0;0;0;0
+timer buttton .png;592;169;44;44; 0.5;0.5; 0;0;0;0
+Z .png;592;124;41;41; 0.5;0.5; 0;0;0;0
+dirt button .png;637;124;41;41; 0.5;0.5; 0;0;0;0
