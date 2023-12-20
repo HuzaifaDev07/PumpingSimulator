@@ -18,34 +18,41 @@ MonoBehaviour:
     BuyAmount: 1000
     Limit: 3
     OwnedItem: 0
-    Icon: {fileID: 21300000, guid: 6a8c7c01cfd0b42d681f79292ce1829a, type: 3}
+    ShippingAmount: 50
+    Icon: {fileID: -1299607731, guid: 77077ec950dcc504393f1c12afa6a37c, type: 3}
   - ItemName: Freezer
     Object: {fileID: 100000, guid: 4fea6053a1424d44daf193f09be2d491, type: 3}
     BuyAmount: 500
     Limit: 1
     OwnedItem: 0
-    Icon: {fileID: 21300000, guid: 6a8c7c01cfd0b42d681f79292ce1829a, type: 3}
+    ShippingAmount: 50
+    Icon: {fileID: -1462324704, guid: 77077ec950dcc504393f1c12afa6a37c, type: 3}
   - ItemName: Shelf
     Object: {fileID: 100000, guid: 4fea6053a1424d44daf193f09be2d491, type: 3}
     BuyAmount: 400
     Limit: 2
     OwnedItem: 0
-    Icon: {fileID: 21300000, guid: 6a8c7c01cfd0b42d681f79292ce1829a, type: 3}
+    ShippingAmount: 50
+    Icon: {fileID: 1198766563, guid: 77077ec950dcc504393f1c12afa6a37c, type: 3}
   - ItemName: CoffeeMachine
     Object: {fileID: 100000, guid: 4fea6053a1424d44daf193f09be2d491, type: 3}
     BuyAmount: 1000
     Limit: 1
     OwnedItem: 0
-    Icon: {fileID: 21300000, guid: 6a8c7c01cfd0b42d681f79292ce1829a, type: 3}
+    ShippingAmount: 50
+    Icon: {fileID: 547695382, guid: 77077ec950dcc504393f1c12afa6a37c, type: 3}
   - ItemName: Newspaper
     Object: {fileID: 100000, guid: 4fea6053a1424d44daf193f09be2d491, type: 3}
     BuyAmount: 100
     Limit: 3
     OwnedItem: 0
-    Icon: {fileID: 21300000, guid: 6a8c7c01cfd0b42d681f79292ce1829a, type: 3}
+    ShippingAmount: 50
+    Icon: {fileID: -837617379, guid: 77077ec950dcc504393f1c12afa6a37c, type: 3}
   - ItemName: IceCream
     Object: {fileID: 100000, guid: 4fea6053a1424d44daf193f09be2d491, type: 3}
     BuyAmount: 500
     Limit: 1
     OwnedItem: 0
-    Icon: {fileID: 21300000, guid: 6a8c7c01cfd0b42d681f79292ce1829a, type: 3}
+    ShippingAmount: 50
+    Icon: {fileID: 1843345840, guid: 77077ec950dcc504393f1c12afa6a37c, type: 3}
+  TotalItemAmount: 12600

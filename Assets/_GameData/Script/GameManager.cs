@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public FuelData FuelSystem;
     public OnlineStoreData StoreData;
     public UiManager _uiManager;
+
     [SerializeField] PlayerManager playerManager;
     [SerializeField] GameObject HudCanvas;
     [SerializeField] GameObject Cars;
@@ -46,9 +47,14 @@ public class GameManager : MonoBehaviour
     [Space(20)]
     [Header("--------- Tab_Working_Assets ---------")]
     [SerializeField] GameObject MobilePhone;
+    public int ItemIndex;
     private void Awake()
     {
         Instance = this;
+        if (PrefData.GetTask() == 0)
+        {
+            StoreData.ResetData();
+        }
     }
 
     private void Start()
@@ -56,6 +62,7 @@ public class GameManager : MonoBehaviour
         if (_GameState == GameState.Debug)
         {
             PrefData.SetCash(false, 9000000);
+            PrefData.SetTask(false, 4);
         }
         //AdsManager.Instance.ShowBanner();
 
@@ -260,21 +267,23 @@ public class GameManager : MonoBehaviour
 
     #region ------------------ Tab-Working -------------------------
 
-    /// <summary>
-    /// check Item Index From OnlineStoreData Object
-    /// </summary>
-    /// <param name="index"></param>
-    /// 
-    public void BuyItem(int index)
-    {
-        StoreData.BuyItem(index, playerManager.ItemHandHeld, _uiManager.GetFreeCoinsPanel);
-    }
     public void OpenTab()
     {
         _uiManager.TabBtn.SetActive(false);
         _uiManager.ControlBtns.SetActive(false);
         MobilePhone.SetActive(true);
+    }
+
+    public void OpenStore()
+    {
+        _uiManager.StorePanel.SetActive(true);
+        _uiManager.StorePanel.GetComponent<DOTweenAnimation>().DOPlayForward();
         StoreData.LoadStoreData(_uiManager.ItemAmountTxt, _uiManager.ItemNameTxt, _uiManager.ItemImage);
+    }
+    public void CloseStore()
+    {
+        Debug.Log("Return");
+        _uiManager.StorePanel.GetComponent<DOTweenAnimation>().DOPlayBackwards();
     }
     public void CloseTab()
     {
@@ -288,6 +297,49 @@ public class GameManager : MonoBehaviour
         _uiManager.TabBtn.SetActive(true);
         MobilePhone.SetActive(false);
     }
+    /// <summary>
+    /// check Item Index From OnlineStoreData Object
+    /// </summary>
+    /// <param name="index"></param>
+    /// 
+    public void BuyItem()
+    {
+        StoreData.BuyItem(ItemIndex, _uiManager.GetFreeCoinsPanel);
+    }
 
+    public void RewardBaseBuyItem()
+    {
+        AdsManager.Instance.ShowInterstitial(BuyItemOnReward, "OnlineItemBuy");
+    }
+    void BuyItemOnReward()
+    {
+        StoreData.BuyItem(ItemIndex, _uiManager.GetFreeCoinsPanel);
+    }
+    public void AddItemInCart(int index)
+    {
+        ItemIndex = StoreData.ItemAddInCart(index, _uiManager.MainItemTotal, _uiManager.BuyBtn, _uiManager.RewardBuyBtn);
+        StoreData.DisplayMainScreen(_uiManager.MainItemShipping, _uiManager.MainItemName, _uiManager.MainItemAmount, _uiManager.MainItemImage, ItemIndex);
+    }
     #endregion
+    #region ------------------------- Inventory -------------------------
+
+
+    public void ShowInventory()
+    {
+        _uiManager.InventoryPanel.SetActive(true);
+        _uiManager.InventoryPanel.GetComponent<DOTweenAnimation>().DOPlayForward();
+    }
+
+    public void ClosedInventory()
+    {
+        _uiManager.InventoryPanel.GetComponent<DOTweenAnimation>().DOPlayBackwards();
+        _uiManager.InventoryPanel.SetActive(false);
+    }
+
+    public void SpawnItem(int ItemIndex)
+    {
+        StoreData.SpawnItem(ItemIndex, playerManager.ItemHandHeld);
+    }
+    #endregion
+
 }

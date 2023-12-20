@@ -1,0 +1,48 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# https://assetstore.unity.com/packages/tools/sprite-management/texturepacker-importer-16641
+#
+# created with Free texture packer v0.6.7
+# http://free-tex-packer.com
+#
+:format=40300
+:texture=tab.png
+:size=2048x1024
+:pivotpoints=enabled
+:borders=disabled
+
+Tab 2c .png;2;560;763;462; 0.5;0.5; 0;0;0;0
+Tab 1 .png;2;100;759;456; 0.5;0.5; 0;0;0;0
+Inventory .png;769;644;663;378; 0.5;0.5; 0;0;0;0
+play button .png;765;275;408;281; 0.5;0.5; 0;0;0;0
+Card 2 .png;1177;262;182;378; 0.5;0.5; 0;0;0;0
+card 1 .png;1436;801;162;221; 0.5;0.5; 0;0;0;0
+Button settings .png;1363;438;184;202; 0.5;0.5; 0;0;0;0
+Reward icon .png;1363;243;169;191; 0.5;0.5; 0;0;0;0
+scroll bar .png;1436;650;12;147; 0.5;0.5; 0;0;0;0
+Laptop .png;1452;705;130;92; 0.5;0.5; 0;0;0;0
+Shelf .png;765;113;97;126; 0.5;0.5; 0;0;0;0
+Water .pg.png;1551;575;41;126; 0.5;0.5; 0;0;0;0
+coffee 2 .png;866;114;73;125; 0.5;0.5; 0;0;0;0
+price bord .png;1551;446;42;125; 0.5;0.5; 0;0;0;0
+Freezer .ng.png;943;117;84;122; 0.5;0.5; 0;0;0;0
+chips shelef .png;1031;117;82;122; 0.5;0.5; 0;0;0;0
+Chair.png;1536;313;59;121; 0.5;0.5; 0;0;0;0
+Toilet .png;1117;120;78;119; 0.5;0.5; 0;0;0;0
+Newspaper .png;1536;193;44;116; 0.5;0.5; 0;0;0;0
+Drink .png;1199;131;116;108; 0.5;0.5; 0;0;0;0
+Board .png;1319;124;73;115; 0.5;0.5; 0;0;0;0
+icecream .png;1396;124;99;115; 0.5;0.5; 0;0;0;0
+fuel pump .png;1602;909;92;113; 0.5;0.5; 0;0;0;0
+Buy now button .png;1584;276;109;33; 0.5;0.5; 0;0;0;0
+Add button .png;1586;768;100;29; 0.5;0.5; 0;0;0;0
+Zmazon button .png;769;560;89;80; 0.5;0.5; 0;0;0;0
+more game icon .png;1452;648;78;53; 0.5;0.5; 0;0;0;0
+bell.png;862;570;64;70; 0.5;0.5; 0;0;0;0
+Rate us icon .png;930;574;68;66; 0.5;0.5; 0;0;0;0
+settings icon .png;1002;575;62;65; 0.5;0.5; 0;0;0;0
+play icon .png;1586;706;54;58; 0.5;0.5; 0;0;0;0
+off button.png;1602;861;56;44; 0.5;0.5; 0;0;0;0
+back button.png;1602;813;56;44; 0.5;0.5; 0;0;0;0

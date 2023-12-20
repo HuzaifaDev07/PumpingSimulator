@@ -12,8 +12,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469c24fdb3bd6431b92cc1465bd9166b, type: 3}
   m_Name: RemoteConfigDataStoreAsset
   m_EditorClassIdentifier: 
-  _rsKeyList: '[]'
-  _rsLastCachedKeyList: '[]'
+  _rsKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"c5191636-5456-40e6-85a8-e6605ac2e4af\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"AdsSettings\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"ShowMaxBanner\": true,\r\n       
+    \"GA_ReportILRD\": true,\r\n        \"GA_ReportEvents\": false,\r\n        \"FB_ReportEvents\":
+    false,\r\n        \"ShowInternetPopup\": true,\r\n        \"ShowMediationOn2GB\":
+    false,\r\n        \"ShowRewardedAd\": false,\r\n        \"ShowAdIcons\": false,\r\n       
+    \"AppOpenAfterXRewarded\": 50,\r\n        \"NextInterstitialDelay\": 5,\r\n       
+    \"AdmobBannerRefreshTime\": -1,\r\n        \"MaxBannerRetryTime\": 30,\r\n       
+    \"MediationPings\": 250,\r\n        \"AdmobPings\": 600\r\n      }\r\n    }\r\n 
+    },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"e83a0e26-a767-425d-bf5d-c45a1e34dc33\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"AdmobSettings\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"BannerID\": \"ca-app-pub-7807619507551678/7125015239\",\r\n       
+    \"MrecID\": \"ca-app-pub-7807619507551678/1489545173\",\r\n        \"InterstitialID\":
+    \"ca-app-pub-7807619507551678/4498851896\",\r\n        \"RewardedID\": \"ca-app-pub-7807619507551678/9559606888\",\r\n       
+    \"AppOpenID\": \"ca-app-pub-7807619507551678/5620361870\"\r\n      }\r\n    }\r\n 
+    }\r\n]"
+  _rsLastCachedKeyList: "[\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"c5191636-5456-40e6-85a8-e6605ac2e4af\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"AdsSettings\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"ShowMaxBanner\": true,\r\n       
+    \"GA_ReportILRD\": true,\r\n        \"GA_ReportEvents\": false,\r\n        \"FB_ReportEvents\":
+    false,\r\n        \"ShowInternetPopup\": true,\r\n        \"ShowMediationOn2GB\":
+    false,\r\n        \"ShowRewardedAd\": false,\r\n        \"ShowAdIcons\": false,\r\n       
+    \"AppOpenAfterXRewarded\": 50,\r\n        \"NextInterstitialDelay\": 5,\r\n       
+    \"AdmobBannerRefreshTime\": -1,\r\n        \"MaxBannerRetryTime\": 30,\r\n       
+    \"MediationPings\": 250,\r\n        \"AdmobPings\": 600\r\n      }\r\n    }\r\n 
+    },\r\n  {\r\n    \"metadata\": {\r\n      \"entityId\": \"e83a0e26-a767-425d-bf5d-c45a1e34dc33\"\r\n   
+    },\r\n    \"rs\": {\r\n      \"key\": \"AdmobSettings\",\r\n      \"type\": \"json\",\r\n     
+    \"schemaId\": null,\r\n      \"value\": {\r\n        \"BannerID\": \"ca-app-pub-7807619507551678/7125015239\",\r\n       
+    \"MrecID\": \"ca-app-pub-7807619507551678/1489545173\",\r\n        \"InterstitialID\":
+    \"ca-app-pub-7807619507551678/4498851896\",\r\n        \"RewardedID\": \"ca-app-pub-7807619507551678/9559606888\",\r\n       
+    \"AppOpenID\": \"ca-app-pub-7807619507551678/5620361870\"\r\n      }\r\n    }\r\n 
+    }\r\n]"
   _environments: "[\r\n  {\r\n    \"projectId\": \"d08d1f6f-806b-474f-a312-671128df8410\",\r\n   
     \"name\": \"production\",\r\n    \"id\": \"68960bc7-48b3-4eaa-b825-c0b4438a863c\",\r\n   
     \"isDefault\": true,\r\n    \"createdAt\": \"2021-08-17T16:56:09Z\",\r\n    \"updatedAt\":

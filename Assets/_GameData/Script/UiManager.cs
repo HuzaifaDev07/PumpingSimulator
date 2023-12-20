@@ -41,9 +41,21 @@ public class UiManager : MonoBehaviour
     [Space(20)]
     [Header("--------- Tab_Working_Assets ---------")]
     public GameObject TabBtn;
+    public GameObject StorePanel;
+    public GameObject BuyBtn;
+    public GameObject RewardBuyBtn;
+    public Image MainItemImage;
+    public Text MainItemAmount;
+    public Text MainItemShipping;
+    public Text MainItemName;
+    public Text MainItemTotal;
     public Text[] ItemNameTxt;
     public Text[] ItemAmountTxt;
     public Image[] ItemImage;
+
+    [Space(20)]
+    [Header("------------ InventoryAssets ------------")]
+    public GameObject InventoryPanel;
 
     private void Awake()
     {
