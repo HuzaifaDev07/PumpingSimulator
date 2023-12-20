@@ -52,7 +52,7 @@ public class ObjectDetect : MonoBehaviour
                 _UiManager.DropTrashBtn.SetActive(false);
             }
 
-            if (hit.collider.CompareTag(PumpTag) && PrefData.GetTask() > 3 && !GameManager.Instance.PumpPick)
+            if (hit.collider.CompareTag(PumpTag) && PrefData.GetTask() > 2 && !GameManager.Instance.PumpPick)
             {
                 Debug.Log("Object with tag '" + hit.collider.gameObject.name + "' detected!");
                 DetectObject = hit.collider.gameObject;
@@ -62,7 +62,8 @@ public class ObjectDetect : MonoBehaviour
             {
                 _UiManager.PumpHoldBtn.SetActive(false);
             }
-            if (hit.collider.CompareTag(Car) && PrefData.GetTask() > 3 && GameManager.Instance.PumpPick)
+
+            if (hit.collider.CompareTag(Car) && PrefData.GetTask() > 2 && GameManager.Instance.PumpPick)
             {
                 Debug.Log("Object with tag '" + hit.collider.gameObject.name + "' detected!");
                 CarDetectRef = hit.collider.gameObject;

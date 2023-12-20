@@ -9,6 +9,8 @@ public class UiManager : MonoBehaviour
     public GameObject FadeScreen;
     public Text ObjectiveTxt;
     public GameObject Canvas;
+    public GameObject Joystick;
+    public GameObject ControlBtns;
 
     [Header("----- PickUpBtns -------")]
     public GameObject TrashPickUpBtn;
@@ -27,12 +29,21 @@ public class UiManager : MonoBehaviour
     public GameObject TrashDispatchPopUp;
     public GameObject PumpNamePanel;
     public GameObject EarnMoney;
+    public GameObject LoadingAdPopUp;
+    public GameObject GetFreeCoinsPanel;
     [Space(20)]
     [Header("------ Text ------")]
     public Text CashText;
     public Text Station;
+    public Text GasStationMeter;
 
     public InputField StationNameInput;
+    [Space(20)]
+    [Header("--------- Tab_Working_Assets ---------")]
+    public GameObject TabBtn;
+    public Text[] ItemNameTxt;
+    public Text[] ItemAmountTxt;
+    public Image[] ItemImage;
 
     private void Awake()
     {
@@ -49,7 +60,7 @@ public class UiManager : MonoBehaviour
             PrefData.SetCash(true, amount);
         else
             PrefData.SetCash(false, amount);
-        CashText.text = PrefData.GetCash().ToString();
+        CashText.text = ConvertNumber(PrefData.GetCash());
 
     }
     /// <summary>
@@ -59,14 +70,23 @@ public class UiManager : MonoBehaviour
     public void UpdateCash(int amount)
     {
         PrefData.SetCash(false, PrefData.GetCash() - amount);
-        CashText.text = PrefData.GetCash().ToString();
+        CashText.text = ConvertNumber(PrefData.GetCash());
     }
     /// <summary>
     /// Just Update Cash Amount
     /// </summary>
     public void UpdateCash()
     {
-        CashText.text = PrefData.GetCash().ToString() + "$";
+        CashText.text = ConvertNumber(PrefData.GetCash()) + "$";
     }
+
+    string ConvertNumber(float value)
+    {
+        float numberToConvert = value;
+        string convertedNumber = NumberConverter.ConvertNumberToShortFormat(numberToConvert);
+        Debug.Log(convertedNumber); // Output: "1k"
+        return convertedNumber;
+    }
+
 }
 

@@ -2,6 +2,7 @@ using SWS;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -52,6 +53,17 @@ public class PlayerManager : MonoBehaviour
         handFilled = false;
         DispatchParticle.SetActive(true);
         _UiManager.DropTrashBtn.SetActive(false);
+
+        if (PrefData.GetTask() == 2)
+            GameManager.Instance.TrashCounter++;
+        if (Application.isPlaying && GameManager.Instance.TrashCounter == 3)
+        {
+            Debug.LogError("TrashedCall");
+            PrefData.SetTask(false, 3);
+            GameManager.Instance.ShowObjective(PrefData.GetTask());
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
         FillTrashDispatcher();
         objectDetect.DetectObject.SetActive(false);
     }

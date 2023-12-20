@@ -1,3 +1,4 @@
+using DG.Tweening;
 using SWS;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ public class CarEssentials : MonoBehaviour
     public Transform PumpPlaceArea;
     public AudioSource audioSfx;
     public AudioClip Horn;
+    public DOTweenAnimation[] Wheels;
 
     public splineMove splineMove;
 
@@ -22,6 +24,10 @@ public class CarEssentials : MonoBehaviour
         if (other.CompareTag("FuelPlace"))
         {
             //MyCollider.GetComponent<Collider>().enabled = false;
+            for (int i = 0; i < Wheels.Length; i++)
+            {
+                Wheels[i].DOPause();
+            }
             col = other.GetComponent<Collider>();
             col.enabled = false;
             splineMove.Pause();
@@ -32,6 +38,10 @@ public class CarEssentials : MonoBehaviour
     public void StartMoveCar()
     {
         splineMove.Resume();
+        for (int i = 0; i < Wheels.Length; i++)
+        {
+            Wheels[i].DOPlay();
+        }
         StartCoroutine(OpenCol());
     }
 

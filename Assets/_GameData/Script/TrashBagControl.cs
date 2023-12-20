@@ -18,9 +18,8 @@ public class TrashBagControl : MonoBehaviour
     void Start()
     {
         _collider.enabled = true;
-        if (PrefData.GetTask() >= 2)
+        if (PrefData.GetTask() == 2)
         {
-
             switch (trashType)
             {
                 case TrashType.trashBag:
@@ -42,15 +41,4 @@ public class TrashBagControl : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        if (Application.isPlaying && PrefData.GetTask() == 2)
-            GameManager.Instance.TrashCounter++;
-        if (Application.isPlaying && GameManager.Instance.TrashCounter == 3)
-        {
-            PrefData.SetTask(true, 1);
-            GameManager.Instance.ShowObjective(PrefData.GetTask());
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-    }
 }
