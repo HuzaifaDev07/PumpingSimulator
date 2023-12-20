@@ -3,7 +3,7 @@ using System.Collections;
 using GoogleMobileAds.Api;
 using System.Text;
 using UnityEngine;
-using Firebase.Analytics;
+//using Firebase.Analytics;
 using System.Collections.Generic;
 using com.adjust.sdk;
 
@@ -18,16 +18,16 @@ public static class AnalyticsManager
         double revenue = (admobAd.Value / 1000000f);
         if (FirebaseManager.hasInitialized)
         {
-            var impressionParameters = new[] {
-            new Parameter("ad_platform", "Admob"),
-            new Parameter("ad_source", "Simple Admob"),
-            new Parameter("ad_unit_name", $"{data.Format}({data.Index})_{data.AdUnit}"),
-            new Parameter("ad_format", "Admob_" + data.Format.ToString()),
-            new Parameter("value", revenue),
-            new Parameter("currency", admobAd.CurrencyCode),
-            (data.Format == AdFormat.Interstitial || data.Format == AdFormat.Rewarded) ? new Parameter("ad_placement", PlacementName.ToLower()) : new Parameter("no_placement", "nothing")
-            };
-            FirebaseAnalytics.LogEvent("ad_impression", impressionParameters);
+            //var impressionParameters = new[] {
+            //new Parameter("ad_platform", "Admob"),
+            //new Parameter("ad_source", "Simple Admob"),
+            //new Parameter("ad_unit_name", $"{data.Format}({data.Index})_{data.AdUnit}"),
+            //new Parameter("ad_format", "Admob_" + data.Format.ToString()),
+            //new Parameter("value", revenue),
+            //new Parameter("currency", admobAd.CurrencyCode),
+            //(data.Format == AdFormat.Interstitial || data.Format == AdFormat.Rewarded) ? new Parameter("ad_placement", PlacementName.ToLower()) : new Parameter("no_placement", "nothing")
+            //};
+            //FirebaseAnalytics.LogEvent("ad_impression", impressionParameters);
         }
 
         //Rev Event for Adjust
@@ -49,17 +49,17 @@ public static class AnalyticsManager
         double revenue = maxAd.Revenue;
         if (FirebaseManager.hasInitialized)
         {
-            var impressionParameters = new[] {
-            new Parameter("ad_platform", "AppLovin"),
-            new Parameter("ad_source", maxAd.NetworkName),
-            new Parameter("ad_unit_name",$"{format}_{GetMaxNetworkType(maxAd.NetworkName)}_{maxAd.WaterfallInfo.TestName}_{maxAd.AdUnitIdentifier}"),
-            new Parameter("ad_format","Applovin_" + format.ToString()),
-            new Parameter("value", revenue),
-            new Parameter("currency", "USD"), // All AppLovin revenue is sent in USD
-            (format == AdFormat.Interstitial || format == AdFormat.Rewarded) ? new Parameter("ad_placement", PlacementName.ToLower()) : new Parameter("no_placement", "nothing")
-            };
+            //var impressionParameters = new[] {
+            //new Parameter("ad_platform", "AppLovin"),
+            //new Parameter("ad_source", maxAd.NetworkName),
+            //new Parameter("ad_unit_name",$"{format}_{GetMaxNetworkType(maxAd.NetworkName)}_{maxAd.WaterfallInfo.TestName}_{maxAd.AdUnitIdentifier}"),
+            //new Parameter("ad_format","Applovin_" + format.ToString()),
+            //new Parameter("value", revenue),
+            //new Parameter("currency", "USD"), // All AppLovin revenue is sent in USD
+            //(format == AdFormat.Interstitial || format == AdFormat.Rewarded) ? new Parameter("ad_placement", PlacementName.ToLower()) : new Parameter("no_placement", "nothing")
+            //};
 
-            FirebaseAnalytics.LogEvent("ad_impression", impressionParameters);
+            //FirebaseAnalytics.LogEvent("ad_impression", impressionParameters);
         }
 
         //Rev Event for Adjust
