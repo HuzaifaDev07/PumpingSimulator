@@ -1,8 +1,18 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+[System.Serializable]
+public class ExtarEarnItems
+{
+    [SerializeField] string ItemName;
+    public GameObject ItemObjects;
+    public SpawnPlaceChecker[] SpaceCheck;
+}
+
 
 public enum GameState
 {
@@ -26,6 +36,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] Transform PumpReturnPos;
     [SerializeField] Transform PlayerFuelingPos;
     [SerializeField] FuelMeterDisplay fuelMeterDisplay;
+    [SerializeField] GameObject FuelDecreaser;
+
+    public static bool NotEnoughFuel = false;
+
 
     [Header("-------- Objective --------")]
     [TextArea]
@@ -48,6 +62,11 @@ public class GameManager : MonoBehaviour
     [Header("--------- Tab_Working_Assets ---------")]
     [SerializeField] GameObject MobilePhone;
     public int ItemIndex;
+
+    [Space(40)]
+    [Header("--------- Extra_Earn_Assets ---------")]
+    [SerializeField] ExtarEarnItems[] extarEarnItems;
+
     private void Awake()
     {
         Instance = this;
@@ -78,6 +97,10 @@ public class GameManager : MonoBehaviour
             playerManager.transform.rotation = PlayerSpawn.rotation;
             ShowObjective(PrefData.GetTask());
         }
+        if (PrefData.GetTask() == 4)
+        {
+            _uiManager.ExtraEarnOption.SetActive(true);
+        }
         ActiveFuelName();
         refCoroutine = StartCoroutine(ShowAd());
     }
@@ -98,6 +121,8 @@ public class GameManager : MonoBehaviour
                     TrashBags[i].hudNavigationElement.enabled = true;
                 }
             }
+            _uiManager.TabBtn.SetActive(false);
+            FuelDecreaser.SetActive(false);
         }
         else
         {
@@ -105,7 +130,8 @@ public class GameManager : MonoBehaviour
             {
                 TrashBags[i].gameObject.SetActive(false);
             }
-
+            _uiManager.TabBtn.SetActive(true);
+            FuelDecreaser.SetActive(true);
             Cars.SetActive(true);
         }
         Debug.LogError(PrefData.GetTask());
@@ -223,7 +249,7 @@ public class GameManager : MonoBehaviour
         playerManager.transform.rotation = PlayerFuelingPos.localRotation;
         Debug.Log("Call");
         _uiManager.Joystick.SetActive(false);
-        objectDetect.DetectObject.transform.SetParent(playerManager.ItemHandHeld.transform);
+        //  objectDetect.DetectObject.transform.SetParent(playerManager.ItemHandHeld.transform);
         PumpPick = true;
     }
 
@@ -233,7 +259,7 @@ public class GameManager : MonoBehaviour
         fuelMeterDisplay.StartFuelMeter();
         _uiManager.putPumpinCar.SetActive(false);
         objectDetect.enabled = false;
-        objectDetect.DetectObject.transform.SetParent(objectDetect.CarDetectRef.GetComponent<CarEssentials>().PumpPlaceArea);
+        //  objectDetect.DetectObject.transform.SetParent(objectDetect.CarDetectRef.GetComponent<CarEssentials>().PumpPlaceArea);
         objectDetect.DetectObject.transform.position =
             objectDetect.CarDetectRef.GetComponent<CarEssentials>().PumpPlaceArea.transform.position;
         objectDetect.DetectObject.transform.rotation =
@@ -253,6 +279,7 @@ public class GameManager : MonoBehaviour
         objectDetect.DetectObject.transform.rotation = PumpReturnPos.rotation;
         objectDetect.CarDetectRef.GetComponent<CarEssentials>().StartMoveCar();
         objectDetect.enabled = true;
+        PrefData.SetTask(false, 4);
         PumpPick = false;
 
     }
@@ -269,13 +296,18 @@ public class GameManager : MonoBehaviour
 
     public void OpenTab()
     {
+        if (PrefData.GetTask() == 4)
+        {
+            _uiManager.ExtraEarnOption.SetActive(false);
+        }
+        PrefData.SetTask(false, 5);
         _uiManager.TabBtn.SetActive(false);
         _uiManager.ControlBtns.SetActive(false);
         MobilePhone.SetActive(true);
     }
-
     public void OpenStore()
     {
+        CloseCompleteOrderPanel(false);
         _uiManager.StorePanel.SetActive(true);
         _uiManager.StorePanel.GetComponent<DOTweenAnimation>().DOPlayForward();
         StoreData.LoadStoreData(_uiManager.ItemAmountTxt, _uiManager.ItemNameTxt, _uiManager.ItemImage);
@@ -304,30 +336,52 @@ public class GameManager : MonoBehaviour
     /// 
     public void BuyItem()
     {
-        StoreData.BuyItem(ItemIndex, _uiManager.GetFreeCoinsPanel);
+        StoreData.BuyItem(ItemIndex, _uiManager.GetFreeCoinsPanel, _uiManager.OrderCompletePanel);
     }
-
     public void RewardBaseBuyItem()
     {
         AdsManager.Instance.ShowInterstitial(BuyItemOnReward, "OnlineItemBuy");
     }
     void BuyItemOnReward()
     {
-        StoreData.BuyItem(ItemIndex, _uiManager.GetFreeCoinsPanel);
+        StoreData.BuyItem(ItemIndex, _uiManager.GetFreeCoinsPanel, _uiManager.OrderCompletePanel);
     }
     public void AddItemInCart(int index)
     {
         ItemIndex = StoreData.ItemAddInCart(index, _uiManager.MainItemTotal, _uiManager.BuyBtn, _uiManager.RewardBuyBtn);
-        StoreData.DisplayMainScreen(_uiManager.MainItemShipping, _uiManager.MainItemName, _uiManager.MainItemAmount, _uiManager.MainItemImage, ItemIndex);
+        StoreData.DisplayMainScreen(_uiManager.MainItemShipping, _uiManager.MainItemName, _uiManager.MainItemAmount, _uiManager.MainItemImage, ItemIndex, false, _uiManager.MainItemTotal);
     }
+    public void ResetMainOrderScreen() => StoreData.DisplayMainScreen(_uiManager.MainItemShipping, _uiManager.MainItemName, _uiManager.MainItemAmount, _uiManager.MainItemImage, ItemIndex, true, _uiManager.MainItemTotal);
+    public void CloseCompleteOrderPanel(bool ActivePanel)
+    {
+        if (ActivePanel)
+        {
+            CloseStore();
+            ActiveInventoryNotification(true);
+        }
+        else
+        {
+            _uiManager.OrderCompletePanel.SetActive(false);
+        }
+    }
+    public void ActiveInventoryNotification(bool ActiveBell) ////////////////////  --------------------- >>>>>> Used to indicate user task
+    {
+        if (ActiveBell)
+            _uiManager.InventoryNotification.SetActive(true);
+        else
+            _uiManager.InventoryNotification.SetActive(false);
+
+    }
+
     #endregion
     #region ------------------------- Inventory -------------------------
 
-
     public void ShowInventory()
     {
+        ActiveInventoryNotification(false);
         _uiManager.InventoryPanel.SetActive(true);
         _uiManager.InventoryPanel.GetComponent<DOTweenAnimation>().DOPlayForward();
+        StoreData.ShowOwnedItem(_uiManager.OwnedItems, _uiManager.OwnedItemsTxt);
     }
 
     public void ClosedInventory()
@@ -339,7 +393,36 @@ public class GameManager : MonoBehaviour
     public void SpawnItem(int ItemIndex)
     {
         StoreData.SpawnItem(ItemIndex, playerManager.ItemHandHeld);
+        for (int i = 0; i < extarEarnItems.Length; i++)
+        {
+            if (!extarEarnItems[ItemIndex].SpaceCheck[i].IsFilled)
+            {
+                Instantiate(extarEarnItems[ItemIndex].ItemObjects, extarEarnItems[ItemIndex].SpaceCheck[i].transform.position, extarEarnItems[ItemIndex].SpaceCheck[i].transform.rotation);
+
+                //return SpaceCheck[i].transform;
+                break;
+            }
+        }
+
     }
     #endregion
 
+}
+[CustomEditor(typeof(GameManager))]
+public class YourScriptEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+
+        GameManager onlineStoreData = (GameManager)target;
+
+        GUILayout.Space(10);
+
+        if (GUILayout.Button("Reset_Online_Store_Data"))
+        {
+            // Perform your custom action here
+            onlineStoreData.StoreData.ResetData();
+        }
+    }
 }

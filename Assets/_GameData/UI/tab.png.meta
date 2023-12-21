@@ -225,8 +225,8 @@ TextureImporter:
       name: more game icon .png
       rect:
         serializedVersion: 2
-        x: 1452
-        y: 648
+        x: 1499
+        y: 136
         width: 78
         height: 53
       alignment: 0
@@ -288,8 +288,8 @@ TextureImporter:
       name: Rate us icon .png
       rect:
         serializedVersion: 2
-        x: 930
-        y: 574
+        x: 1581
+        y: 101
         width: 68
         height: 66
       alignment: 0
@@ -351,7 +351,7 @@ TextureImporter:
       name: settings icon .png
       rect:
         serializedVersion: 2
-        x: 1002
+        x: 1023
         y: 575
         width: 62
         height: 65
@@ -414,7 +414,7 @@ TextureImporter:
       name: Zmazon button .png
       rect:
         serializedVersion: 2
-        x: 769
+        x: 862
         y: 560
         width: 89
         height: 80
@@ -435,8 +435,8 @@ TextureImporter:
       name: back button.png
       rect:
         serializedVersion: 2
-        x: 1602
-        y: 813
+        x: 1089
+        y: 596
         width: 56
         height: 44
       alignment: 0
@@ -456,7 +456,7 @@ TextureImporter:
       name: bell.png
       rect:
         serializedVersion: 2
-        x: 862
+        x: 955
         y: 570
         width: 64
         height: 70
@@ -477,7 +477,7 @@ TextureImporter:
       name: Board .png
       rect:
         serializedVersion: 2
-        x: 1319
+        x: 1422
         y: 124
         width: 73
         height: 115
@@ -603,7 +603,7 @@ TextureImporter:
       name: icecream .png
       rect:
         serializedVersion: 2
-        x: 1396
+        x: 1319
         y: 124
         width: 99
         height: 115
@@ -666,8 +666,8 @@ TextureImporter:
       name: off button.png
       rect:
         serializedVersion: 2
-        x: 1602
-        y: 861
+        x: 1452
+        y: 657
         width: 56
         height: 44
       alignment: 0
@@ -809,6 +809,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: box 2s.png
+      rect:
+        serializedVersion: 2
+        x: 1584
+        y: 171
+        width: 105
+        height: 101
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af3c235bdd16c82439ebaa813f711c2d
+      internalID: 861357571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fuel .png
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 560
+        width: 89
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15f98f9798aa9d444bf094be2b76d5ab
+      internalID: -14913214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -824,6 +866,8 @@ TextureImporter:
       scroll bar .png: -2145561436
       off button.png: 1545167308
       play icon .png: 284444973
+      fuel .png: -14913214
+      box 2s.png: 861357571
       card 1 .png: -1471742761
       Chair.png: 1830153674
       chips shelef .png: 1198766563

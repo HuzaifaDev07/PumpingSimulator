@@ -31,6 +31,7 @@ public class UiManager : MonoBehaviour
     public GameObject EarnMoney;
     public GameObject LoadingAdPopUp;
     public GameObject GetFreeCoinsPanel;
+    public GameObject ExtraEarnOption;
     [Space(20)]
     [Header("------ Text ------")]
     public Text CashText;
@@ -44,6 +45,7 @@ public class UiManager : MonoBehaviour
     public GameObject StorePanel;
     public GameObject BuyBtn;
     public GameObject RewardBuyBtn;
+    public GameObject OrderCompletePanel;
     public Image MainItemImage;
     public Text MainItemAmount;
     public Text MainItemShipping;
@@ -56,6 +58,14 @@ public class UiManager : MonoBehaviour
     [Space(20)]
     [Header("------------ InventoryAssets ------------")]
     public GameObject InventoryPanel;
+    public GameObject InventoryNotification;
+    public GameObject[] OwnedItems;
+    public Text[] OwnedItemsTxt;
+
+    [Space(20)]
+    [Header("------------ Fuel_Decreaser ------------")]
+    public GameObject FuelBuyPanel;
+    public GameObject FuelLowPanel;
 
     private void Awake()
     {
