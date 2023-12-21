@@ -29,7 +29,7 @@ public class ToiletController : MonoBehaviour
         GameObject objectToSpawn = objectsToSpawn[Random.Range(0, objectsToSpawn.Length)];
 
         // Instantiate the chosen object at the spawner's position
-        Instantiate(objectToSpawn, transform.position, Quaternion.identity);
+        objectToSpawn.SetActive(true);
 
         // Start the spawning process again
         SpawnRandomObject();

@@ -32,6 +32,7 @@ public class UiManager : MonoBehaviour
     public GameObject LoadingAdPopUp;
     public GameObject GetFreeCoinsPanel;
     public GameObject ExtraEarnOption;
+    public GameObject EarnCoinFromToilet;
     [Space(20)]
     [Header("------ Text ------")]
     public Text CashText;

@@ -204,14 +204,17 @@ namespace SWS
         private int[] rndArray;
         //coroutine when a wait routine is active
         private Coroutine waitRoutine;
-
-
-        //check for automatic initialization
-        void Start()
+        private void OnEnable()
         {
             if (onStart)
                 StartMove();
         }
+
+        //check for automatic initialization
+        //void Start()
+        //{
+           
+        //}
 
 
         /// <summary>
