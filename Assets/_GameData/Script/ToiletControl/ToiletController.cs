@@ -10,6 +10,7 @@ public class ToiletController : MonoBehaviour
 
     private void Start()
     {
+        ES3AutoSaveMgr.Current.Save();
         // Start the spawning process
         SpawnRandomObject();
     }

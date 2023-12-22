@@ -93,7 +93,6 @@ GameObject:
   - component: {fileID: 4788231331158879901}
   - component: {fileID: 4788231331158879902}
   - component: {fileID: 4788231331158879903}
-  - component: {fileID: 3547706489372859235}
   m_Layer: 0
   m_Name: Earn from toilet
   m_TagString: Untagged
@@ -294,16 +293,3 @@ MonoBehaviour:
   optionalRotationMode: 0
   optionalScrambleMode: 0
   optionalString: 
---- !u!114 &3547706489372859235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4788231331158879841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4757377451d964a4da51a2021edfe700, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AmountEarn: {fileID: 4788231329890641488}

@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        ES3AutoSaveMgr.Current.Load();
         if (_GameState == GameState.Debug)
         {
             PrefData.SetCash(false, 9000000);
@@ -152,7 +153,7 @@ public class GameManager : MonoBehaviour
     {
         PrefData.SetTask(true, 1);
         ShowObjective(PrefData.GetTask());
-        _uiManager.UpdateCash(4500, true);
+        _uiManager.UpdateCash(5500, true);
         playerManager.ConfettiParticle.SetActive(true);
         _uiManager.SellPanel.SetActive(false);
         TasksObjects[PrefData.GetTask() - 1].SetActive(false);
@@ -249,7 +250,7 @@ public class GameManager : MonoBehaviour
         playerManager.transform.rotation = PlayerFuelingPos.localRotation;
         Debug.Log("Call");
         _uiManager.Joystick.SetActive(false);
-        //  objectDetect.DetectObject.transform.SetParent(playerManager.ItemHandHeld.transform);
+        //objectDetect.DetectObject.transform.SetParent(playerManager.ItemHandHeld.transform);
         PumpPick = true;
     }
 
@@ -280,6 +281,7 @@ public class GameManager : MonoBehaviour
         objectDetect.CarDetectRef.GetComponent<CarEssentials>().StartMoveCar();
         objectDetect.enabled = true;
         PrefData.SetTask(false, 4);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         PumpPick = false;
 
     }
@@ -397,14 +399,22 @@ public class GameManager : MonoBehaviour
         {
             if (!extarEarnItems[ItemIndex].SpaceCheck[i].IsFilled)
             {
-                Instantiate(extarEarnItems[ItemIndex].ItemObjects, extarEarnItems[ItemIndex].SpaceCheck[i].transform.position, extarEarnItems[ItemIndex].SpaceCheck[i].transform.rotation);
-
+                Instantiate(extarEarnItems[ItemIndex].ItemObjects, extarEarnItems[ItemIndex].SpaceCheck[i].transform.localPosition, extarEarnItems[ItemIndex].SpaceCheck[i].transform.localRotation);
                 //return SpaceCheck[i].transform;
                 break;
             }
         }
-
+        playerManager.gameObject.SetActive(false);
+        _uiManager.Canvas.SetActive(false);
+        StartCoroutine(ActivePlayer());
     }
+    IEnumerator ActivePlayer()
+    {
+        yield return new WaitForSeconds(3f);
+        playerManager.gameObject.SetActive(true);
+        _uiManager.Canvas.SetActive(true);
+    }
+
     #endregion
 
 }
