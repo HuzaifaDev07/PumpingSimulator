@@ -11,6 +11,7 @@ public class PlayerManager : MonoBehaviour
 
     [Header("------ ObjectPickTransforms ------")]
     public Transform ItemHandHeld;
+    public Transform PumpHandler;
     public bool handFilled;
 
     [Space(20)]

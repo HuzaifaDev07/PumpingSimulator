@@ -120,8 +120,8 @@ TextureImporter:
       name: Add button .png
       rect:
         serializedVersion: 2
-        x: 1586
-        y: 768
+        x: 1585
+        y: 108
         width: 100
         height: 29
       alignment: 0
@@ -162,8 +162,8 @@ TextureImporter:
       name: Buy now button .png
       rect:
         serializedVersion: 2
-        x: 1584
-        y: 276
+        x: 1536
+        y: 244
         width: 109
         height: 33
       alignment: 0
@@ -225,8 +225,8 @@ TextureImporter:
       name: more game icon .png
       rect:
         serializedVersion: 2
-        x: 1499
-        y: 136
+        x: 955
+        y: 587
         width: 78
         height: 53
       alignment: 0
@@ -267,8 +267,8 @@ TextureImporter:
       name: play icon .png
       rect:
         serializedVersion: 2
-        x: 1586
-        y: 706
+        x: 68
+        y: 38
         width: 54
         height: 58
       alignment: 0
@@ -288,8 +288,8 @@ TextureImporter:
       name: Rate us icon .png
       rect:
         serializedVersion: 2
-        x: 1581
-        y: 101
+        x: 1105
+        y: 574
         width: 68
         height: 66
       alignment: 0
@@ -351,8 +351,8 @@ TextureImporter:
       name: settings icon .png
       rect:
         serializedVersion: 2
-        x: 1023
-        y: 575
+        x: 2
+        y: 31
         width: 62
         height: 65
       alignment: 0
@@ -435,8 +435,8 @@ TextureImporter:
       name: back button.png
       rect:
         serializedVersion: 2
-        x: 1089
-        y: 596
+        x: 186
+        y: 52
         width: 56
         height: 44
       alignment: 0
@@ -456,7 +456,7 @@ TextureImporter:
       name: bell.png
       rect:
         serializedVersion: 2
-        x: 955
+        x: 1037
         y: 570
         width: 64
         height: 70
@@ -477,7 +477,7 @@ TextureImporter:
       name: Board .png
       rect:
         serializedVersion: 2
-        x: 1422
+        x: 1508
         y: 124
         width: 73
         height: 115
@@ -498,8 +498,8 @@ TextureImporter:
       name: Chair.png
       rect:
         serializedVersion: 2
-        x: 1536
-        y: 313
+        x: 1120
+        y: 118
         width: 59
         height: 121
       alignment: 0
@@ -519,7 +519,7 @@ TextureImporter:
       name: chips shelef .png
       rect:
         serializedVersion: 2
-        x: 1031
+        x: 1034
         y: 117
         width: 82
         height: 122
@@ -540,7 +540,7 @@ TextureImporter:
       name: Drink .png
       rect:
         serializedVersion: 2
-        x: 1199
+        x: 1388
         y: 131
         width: 116
         height: 108
@@ -561,8 +561,8 @@ TextureImporter:
       name: Freezer .ng.png
       rect:
         serializedVersion: 2
-        x: 943
-        y: 117
+        x: 1452
+        y: 675
         width: 84
         height: 122
       alignment: 0
@@ -582,8 +582,8 @@ TextureImporter:
       name: fuel pump .png
       rect:
         serializedVersion: 2
-        x: 1602
-        y: 909
+        x: 1585
+        y: 281
         width: 92
         height: 113
       alignment: 0
@@ -603,8 +603,8 @@ TextureImporter:
       name: icecream .png
       rect:
         serializedVersion: 2
-        x: 1319
-        y: 124
+        x: 1585
+        y: 398
         width: 99
         height: 115
       alignment: 0
@@ -624,8 +624,8 @@ TextureImporter:
       name: Laptop .png
       rect:
         serializedVersion: 2
-        x: 1452
-        y: 705
+        x: 1551
+        y: 517
         width: 130
         height: 92
       alignment: 0
@@ -645,8 +645,8 @@ TextureImporter:
       name: Newspaper .png
       rect:
         serializedVersion: 2
-        x: 1536
-        y: 193
+        x: 1340
+        y: 123
         width: 44
         height: 116
       alignment: 0
@@ -666,8 +666,8 @@ TextureImporter:
       name: off button.png
       rect:
         serializedVersion: 2
-        x: 1452
-        y: 657
+        x: 126
+        y: 52
         width: 56
         height: 44
       alignment: 0
@@ -687,8 +687,8 @@ TextureImporter:
       name: price bord .png
       rect:
         serializedVersion: 2
-        x: 1551
-        y: 446
+        x: 988
+        y: 114
         width: 42
         height: 125
       alignment: 0
@@ -729,7 +729,7 @@ TextureImporter:
       name: Toilet .png
       rect:
         serializedVersion: 2
-        x: 1117
+        x: 1258
         y: 120
         width: 78
         height: 119
@@ -750,8 +750,8 @@ TextureImporter:
       name: Water .pg.png
       rect:
         serializedVersion: 2
-        x: 1551
-        y: 575
+        x: 866
+        y: 113
         width: 41
         height: 126
       alignment: 0
@@ -771,7 +771,7 @@ TextureImporter:
       name: coffee 2 .png
       rect:
         serializedVersion: 2
-        x: 866
+        x: 911
         y: 114
         width: 73
         height: 125
@@ -813,10 +813,10 @@ TextureImporter:
       name: box 2s.png
       rect:
         serializedVersion: 2
-        x: 1584
-        y: 171
-        width: 105
-        height: 101
+        x: 1585
+        y: 141
+        width: 103
+        height: 99
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -851,6 +851,69 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: hand-point.png
+      rect:
+        serializedVersion: 2
+        x: 1551
+        y: 613
+        width: 138
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c7083161468ba147a3269a6b6779806
+      internalID: 2108453823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mobile .png
+      rect:
+        serializedVersion: 2
+        x: 1602
+        y: 838
+        width: 99
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83ccff086f861ee44bd86a6a1197c5e4
+      internalID: 1916558187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Soda 3w .png
+      rect:
+        serializedVersion: 2
+        x: 1183
+        y: 119
+        width: 71
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 438f706e7a04b87469d3432ae69ce33c
+      internalID: -603192941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -866,18 +929,21 @@ TextureImporter:
       scroll bar .png: -2145561436
       off button.png: 1545167308
       play icon .png: 284444973
+      Soda 3w .png: -603192941
       fuel .png: -14913214
       box 2s.png: 861357571
       card 1 .png: -1471742761
       Chair.png: 1830153674
       chips shelef .png: 1198766563
       play button .png: 1645641514
-      Shelf .png: -1924595869
+      hand-point.png: 2108453823
       Water .pg.png: 1868446713
+      Shelf .png: -1924595869
       Reward icon .png: 229009369
       Inventory .png: 1636580008
       Zmazon button .png: 1436977312
       Laptop .png: 379201961
+      Mobile .png: 1916558187
       Tab 2c .png: -427729379
       Drink .png: -170075357
       bell.png: 1070265378

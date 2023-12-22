@@ -55,6 +55,7 @@ public class UiManager : MonoBehaviour
     public Text[] ItemNameTxt;
     public Text[] ItemAmountTxt;
     public Image[] ItemImage;
+    public Button[] AddButton;
 
     [Space(20)]
     [Header("------------ InventoryAssets ------------")]

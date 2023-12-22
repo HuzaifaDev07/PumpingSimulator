@@ -15,7 +15,9 @@ public class StoreItemData
     public int OwnedItem;
     public int UsedItem;
     public int ShippingAmount;
+    public bool LimitReach;
     public Sprite Icon;
+    public int LimitBlocker;
 }
 
 
@@ -24,31 +26,65 @@ public class OnlineStoreData : ScriptableObject
 {
     public StoreItemData[] storeItemData;
     [SerializeField] int TotalItemAmount;
-    public void LoadStoreData(Text[] AmountShow, Text[] ItemName, Image[] ItemImage)
+    public void LoadStoreData(Text[] AmountShow, Text[] ItemName, Image[] ItemImage, Button[] Button)
     {
+        GameManager.Instance.ResetMainOrderScreen();
         for (int i = 0; i < AmountShow.Length; i++)
         {
             AmountShow[i].text = "Price: <color=red>" + storeItemData[i].BuyAmount.ToString() + "</color>";
             ItemName[i].text = storeItemData[i].ItemName;
             ItemImage[i].sprite = storeItemData[i].Icon;
+            UiManager.instance.BuyBtn.SetActive(false);
+            Button[i].gameObject.SetActive(false);
+            if (storeItemData[i].LimitReach)
+            {
+                Button[i].interactable = false;
+                AmountShow[i].text = "Price: <color=red> Sold Out </color>";
+            }
+            else
+            {
+                Button[i].gameObject.SetActive(true);
+                Button[i].interactable = true;
+            }
         }
+        UiManager.instance.BuyBtn.SetActive(false);
+        UiManager.instance.RewardBuyBtn.SetActive(false);
+
     }
 
-    public void BuyItem(int ItemIndex, GameObject FreeCoinObject, GameObject ThanksPanel)
+    public void BuyItem(int ItemIndex, GameObject FreeCoinObject, GameObject ThanksPanel, bool Reward)
     {
         Debug.Log("BuyItem");
         if (PrefData.GetCash() > storeItemData[ItemIndex].BuyAmount)
         {
-            storeItemData[ItemIndex].OwnedItem++;
+            storeItemData[ItemIndex].OwnedItem = storeItemData[ItemIndex].LimitBlocker;
             GameManager.Instance._uiManager.UpdateCash(storeItemData[ItemIndex].BuyAmount);
             ThanksPanel.SetActive(true);
             GameManager.Instance.ResetMainOrderScreen();
             UpdateOwnedItemData(ItemIndex, false);
+            storeItemData[ItemIndex].LimitReach = true;
+            storeItemData[ItemIndex].UsedItem = 1;
+
         }
         else
         {
+            storeItemData[ItemIndex].LimitReach = false;
             MobileToast.Show("Not enough money to buy item", false);
+            UiManager.instance.BuyBtn.SetActive(false);
+            UiManager.instance.RewardBuyBtn.SetActive(true);
             FreeCoinObject.SetActive(true);
+        }
+        if (Reward)
+        {
+            //storeItemData[ItemIndex].UsedItem = 1;
+            storeItemData[ItemIndex].LimitReach = true;
+            //storeItemData[ItemIndex].OwnedItem = 1;
+            storeItemData[ItemIndex].OwnedItem = storeItemData[ItemIndex].LimitBlocker;
+            //GameManager.Instance._uiManager.UpdateCash(storeItemData[ItemIndex].BuyAmount);
+            ThanksPanel.SetActive(true);
+            GameManager.Instance.ResetMainOrderScreen();
+            UpdateOwnedItemData(ItemIndex, false);
+            storeItemData[ItemIndex].UsedItem = 1;
         }
     }
     /// <summary>
@@ -60,10 +96,14 @@ public class OnlineStoreData : ScriptableObject
     /// <param name="itemImage"></param>
     /// <param name="ItemIndex"></param>
     /// <param name="PurchaseCheck"></param>
-    public void DisplayMainScreen(Text ShippingPrice, Text itemName, Text ItemAmount, Image itemImage, int ItemIndex, bool PurchaseCheck, Text TotalAmount)
+    public void DisplayMainScreen(Text ShippingPrice, Text itemName, Text ItemAmount, Image itemImage, int ItemIndex, bool PurchaseCheck, Text TotalAmount, Button[] Button)
     {
         if (!PurchaseCheck)
         {
+            for (int i = 0; i < Button.Length; i++)
+            {
+                Button[i].gameObject.SetActive(false);
+            }
             ShippingPrice.text = "<color=grey> Shipping Cost </color>: <color=black>" + storeItemData[ItemIndex].ShippingAmount + "$ </color>";
             itemName.text = storeItemData[ItemIndex].ItemName;
             ItemAmount.text = "<color=grey> Item Cost </color>: <color=black>" + storeItemData[ItemIndex].BuyAmount + "$</color>";
@@ -80,22 +120,46 @@ public class OnlineStoreData : ScriptableObject
     }
 
 
-    public int ItemAddInCart(int ItemIndex, Text TotalAmount, GameObject BuyBtn, GameObject RewardBuyBtn)
+    public int ItemAddInCart(int ItemIndex, Text TotalAmount, GameObject BuyBtn, GameObject RewardBuyBtn, Button[] AddBtn)
     {
-        if (PrefData.GetCash() >= TotalItemAmount)
+
+        if (GameManager.Instance.BuybyReward)
         {
+            GameManager.Instance.BuybyReward = false;
             TotalItemAmount += storeItemData[ItemIndex].BuyAmount + storeItemData[ItemIndex].ShippingAmount;
             TotalAmount.text = "Total : " + TotalItemAmount + "$";
             BuyBtn.SetActive(true);
             RewardBuyBtn.SetActive(false);
             storeItemData[ItemIndex].UsedItem = storeItemData[ItemIndex].OwnedItem;
-
+            storeItemData[ItemIndex].LimitBlocker++;
+            if (storeItemData[ItemIndex].LimitBlocker >= storeItemData[ItemIndex].Limit)
+            {
+                //storeItemData[ItemIndex].LimitReach = true;
+                AddBtn[ItemIndex].gameObject.SetActive(false);
+            }
         }
         else
         {
-            BuyBtn.SetActive(false);
-            RewardBuyBtn.SetActive(true);
-            MobileToast.Show("Not Enough Money", false);
+            if (PrefData.GetCash() >= TotalItemAmount)
+            {
+                TotalItemAmount += storeItemData[ItemIndex].BuyAmount + storeItemData[ItemIndex].ShippingAmount;
+                TotalAmount.text = "Total : " + TotalItemAmount + "$";
+                BuyBtn.SetActive(true);
+                RewardBuyBtn.SetActive(false);
+                storeItemData[ItemIndex].UsedItem = storeItemData[ItemIndex].OwnedItem;
+                storeItemData[ItemIndex].LimitBlocker++;
+                if (storeItemData[ItemIndex].LimitBlocker >= storeItemData[ItemIndex].Limit)
+                {
+                    //storeItemData[ItemIndex].LimitReach = true;
+                    AddBtn[ItemIndex].gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                BuyBtn.SetActive(false);
+                RewardBuyBtn.SetActive(true);
+                MobileToast.Show("Not Enough Money", false);
+            }
         }
         return ItemIndex;
     }
@@ -107,7 +171,8 @@ public class OnlineStoreData : ScriptableObject
         {
             storeItemData[i].OwnedItem = 0;
             storeItemData[i].UsedItem = 0;
-
+            storeItemData[i].LimitBlocker = 0;
+            storeItemData[i].LimitReach = false;
         }
         TotalItemAmount = 0;
     }
