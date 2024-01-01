@@ -4,10 +4,11 @@ using UnityEngine;
 
 public static class PrefData
 {
-    public static string GameTask= "GameTask";
+    public static string GameTask = "GameTask";
     public static string Money = "money";
     public static string PumpPurchase = "PumpPurchase";
-   
+    public static string PumpUpgrade = "PumpUpgrade";
+
 
 
 
@@ -84,6 +85,32 @@ public static class PrefData
         }
 
         return GetPumpPurchased();
+
+    }
+
+
+    public static int GetPumpUpgrade()
+    {
+        return PlayerPrefs.GetInt(PumpUpgrade);
+    }
+    /// <summary>
+    /// Set Level index if boolean is true then You can add index in Current Level ....
+    /// else you can set that index as level number .
+    /// </summary>
+    /// <returns></returns>
+    public static int SetPumpUpgrade(bool check, int increase)
+    {
+
+        if (check)
+        {
+            PlayerPrefs.SetInt(PumpUpgrade, GetPumpUpgrade() + increase);
+        }
+        else
+        {
+            PlayerPrefs.SetInt(PumpUpgrade, increase);
+        }
+
+        return GetPumpUpgrade();
 
     }
 

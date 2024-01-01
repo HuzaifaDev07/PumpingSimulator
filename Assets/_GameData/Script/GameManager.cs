@@ -32,13 +32,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerManager playerManager;
     [SerializeField] MarketManager marketManager;
     [SerializeField] GameObject HudCanvas;
-    [SerializeField] GameObject Cars;
+    [SerializeField] GameObject OldStationCars;
+    [SerializeField] GameObject NewStationCars;
     [SerializeField] Transform PlayerSpawn;
     [SerializeField] ObjectDetect objectDetect;
     [SerializeField] Transform PumpHandlePos;
-    [SerializeField] Transform PumpReturnPos;
+    [SerializeField] Transform OldGasPumpReturnPos;
     [SerializeField] Transform PlayerFuelingPos;
     [SerializeField] FuelMeterDisplay fuelMeterDisplay;
+    [SerializeField] GameObject OldPumpStation;
+    [SerializeField] GameObject NewPumpStation;
     [SerializeField] GameObject FuelDecreaser;
     bool LoadInGameAd = true;
     public static bool NotEnoughFuel = false;
@@ -94,6 +97,10 @@ public class GameManager : MonoBehaviour
         {
             AdsManager.Instance.ShowBanner();
         }
+
+
+
+        ActiveFuelName();
         _uiManager.UpdateCash();
         _uiManager.FadeScreen.SetActive(true);
         if (PrefData.GetTask() == 0)
@@ -120,7 +127,7 @@ public class GameManager : MonoBehaviour
             playerCounterPos.SetActive(true);
         }
 
-        ActiveFuelName();
+
         refCoroutine = StartCoroutine(ShowAd());
     }
 
@@ -163,7 +170,17 @@ public class GameManager : MonoBehaviour
 
             //FuelDecreaser.SetActive(true);
             _uiManager.ControlBtns.SetActive(true);
-            Cars.SetActive(true);
+            if (PrefData.GetPumpUpgrade() == 0)
+            {
+                OldStationCars.SetActive(true);
+                NewStationCars.SetActive(false);
+            }
+            else
+            {
+                OldStationCars.SetActive(false);
+                NewStationCars.SetActive(true);
+            }
+
         }
         Debug.LogError(PrefData.GetTask());
     }
@@ -227,8 +244,14 @@ public class GameManager : MonoBehaviour
         {
             //_uiManager.ObjectiveTxt.transform.parent.gameObject.SetActive(false);
             FuelName.SetActive(true);
-            _uiManager.StationNameInput.text = PlayerPrefs.GetString("PumpName");
+            for (int i = 0; i < _uiManager.Station.Length; i++)
+            {
+                _uiManager.Station[i].text = PlayerPrefs.GetString("PumpName") + " Station";
+            }
+            // _uiManager.StationNameInput.text = PlayerPrefs.GetString("PumpName");
+
         }
+
     }
 
     public void CarSelled()
@@ -346,6 +369,9 @@ public class GameManager : MonoBehaviour
     public void PickPickFuelPump()
     {
         FuelSystem.GetFuelIndex();  ///////  ---------------- >>>>>>>   Getting Value From FuelSystem Object;
+        
+        playerManager.GetComponent<CharacterController>().enabled = false;
+        playerManager.transform.SetParent(PlayerFuelingPos);
         playerManager.transform.position = PlayerFuelingPos.position;
         playerManager.transform.rotation = PlayerFuelingPos.rotation;
         Debug.Log("Call");
@@ -359,7 +385,7 @@ public class GameManager : MonoBehaviour
     public void FillFuel()
     {
 
-        fuelMeterDisplay.StartFuelMeter();
+        //fuelMeterDisplay.StartFuelMeter();
         _uiManager.putPumpinCar.SetActive(false);
         objectDetect.enabled = false;
         objectDetect.DetectObject.transform.SetParent(objectDetect.CarDetectRef.GetComponent<CarEssentials>().PumpPlaceArea);
@@ -374,13 +400,15 @@ public class GameManager : MonoBehaviour
     IEnumerator TankFilled()
     {
         yield return new WaitForSeconds(FuelSystem.GetFuelTime());
+        playerManager.GetComponent<CharacterController>().enabled = true;
+        playerManager.transform.SetParent(null);
         _uiManager.FuelFilledPopUp.SetActive(true);
         _uiManager.FuelFilledPopUp.transform.DOScale(Vector3.one, 0.5f);
         _uiManager.ControlBtns.SetActive(false);
         objectDetect.DetectObject.transform.SetParent(null);
         _uiManager.UpdateCash(FuelSystem.GetFuelEarnAmount(), true);
         Instantiate(_uiManager.EarnMoney, _uiManager.Canvas.transform);
-        objectDetect.DetectObject.transform.SetPositionAndRotation(PumpReturnPos.position, PumpReturnPos.rotation);
+        objectDetect.DetectObject.transform.SetPositionAndRotation(OldGasPumpReturnPos.position, OldGasPumpReturnPos.rotation);
         objectDetect.CarDetectRef.GetComponent<CarEssentials>().StartMoveCar();
         objectDetect.enabled = true;
         if (PrefData.GetTask() == 3)
@@ -395,6 +423,7 @@ public class GameManager : MonoBehaviour
         _uiManager.FuelFilledPopUp.transform.DOScale(Vector3.zero, 0.5f);
         StartCoroutine(DisableFuelFilledPopUp());
     }
+
     IEnumerator DisableFuelFilledPopUp()
     {
         yield return new WaitForSeconds(0.75f);

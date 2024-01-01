@@ -42,7 +42,7 @@ public class UiManager : MonoBehaviour
     [Space(20)]
     [Header("------ Text ------")]
     public Text CashText;
-    public Text Station;
+    public Text[] Station;
     public Text GasStationMeter;
     public Text MarketItemText;
 

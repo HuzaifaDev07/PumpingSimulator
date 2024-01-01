@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e23715ce6afa427419a3346e4f0446d9, type: 3}
+  m_Name: Environment_Data
+  m_EditorClassIdentifier: 
+  environmentData:
+  - Name: Old_Station
+    HaveFog: 1
+    skycolor:
+      R: 212
+      G: 212
+      B: 212
+    equatorColor:
+      R: 202
+      G: 131
+      B: 127
+    groundColor:
+      R: 113
+      G: 113
+      B: 113
