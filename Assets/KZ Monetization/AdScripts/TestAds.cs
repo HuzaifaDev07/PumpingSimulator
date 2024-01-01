@@ -7,6 +7,14 @@ public class TestAds : MonoBehaviour
     [SerializeField] Text RewardCounter;
     int rewardCount;
 
+    public void ShowConsentForm()
+    {
+        ConsentManager.GatherConsent(AdsManager.Instance.TestAds, false, (status, message) =>
+         {
+             MonetizationLogger.Log(message);
+         });
+    }
+
     public void ShowInterstitial()
     {
         AdsManager.Instance.ShowInterstitial("TestAds");

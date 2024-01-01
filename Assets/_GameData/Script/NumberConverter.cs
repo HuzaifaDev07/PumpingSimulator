@@ -14,7 +14,7 @@ public static class NumberConverter
         }
         else if (number >= 1000)
         {
-            return (number / 1000f).ToString("F2") + "k";
+            return (number / 1000f).ToString("F1") + "k";
         }
         else
         {

@@ -33,11 +33,18 @@ public class UiManager : MonoBehaviour
     public GameObject GetFreeCoinsPanel;
     public GameObject ExtraEarnOption;
     public GameObject EarnCoinFromToilet;
+    public GameObject EarnCoinFromMarket;
+    public GameObject FuelFilledPopUp;
+    public GameObject objectivePannel;
+    public GameObject fadeScreen;
+    public GameObject okButton;
+   // public GameObject ObjectivePannel;
     [Space(20)]
     [Header("------ Text ------")]
     public Text CashText;
     public Text Station;
     public Text GasStationMeter;
+    public Text MarketItemText;
 
     public InputField StationNameInput;
     [Space(20)]
@@ -111,6 +118,5 @@ public class UiManager : MonoBehaviour
         Debug.Log(convertedNumber); // Output: "1k"
         return convertedNumber;
     }
-
 }
 

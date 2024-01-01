@@ -5,17 +5,27 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 using System;
 
-public class LoadingScript : MonoBehaviour
+public class LoadingScript : SplashBase
 {
     public GameObject loadingScreen;
     public Image loadingSlider;
     public Text loadingText;
 
+    public override void OnAccept()
+    {
+        Scene("Gameplay");    
+    }
+    public override void OnLoadingLevel(float value)
+    {
+        loadingSlider.fillAmount = value;
+        string percent = (loadingSlider.fillAmount * 100).ToString("F0");
+        loadingText.text = string.Format("<size=35>{0}%</size>", percent);
+    }
     public void Scene(string leveName)
     {
         Time.timeScale = 1;
-        StartCoroutine(LoadScene(leveName));
         loadingScreen.SetActive(true);
+        StartCoroutine(LoadScene(leveName));
         StartCoroutine(LoadAd());
         Resources.UnloadUnusedAssets();
         Time.timeScale = 1;

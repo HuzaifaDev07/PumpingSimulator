@@ -7,7 +7,7 @@ import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient.Info;
 
 public class KZMonetization {
-    private static final String TAG = "KZMonetization";
+    private static final String TAG = "Monetization";
     public static String getAdvertisingId(Context context) {
         try{
             Info adInfo = AdvertisingIdClient.getAdvertisingIdInfo(context);
@@ -31,5 +31,15 @@ public class KZMonetization {
         }
 
         return null;
+    }
+	
+    public static void logMessage(String message) {
+        Log.d(TAG, message);
+    }
+    public static void logWarning(String message) {
+        Log.w(TAG, message);
+    }
+    public static void logError(String message) {
+        Log.e(TAG, message);
     }
 }

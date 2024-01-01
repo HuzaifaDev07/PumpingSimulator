@@ -213,17 +213,17 @@ MonoBehaviour:
   - ca-app-pub-7807619507551678/8355505735
   AppOpenIDs:
   - ca-app-pub-7807619507551678/2051280825
+  MaxSDKKey: d5sDfeSTdolnmhpfxJCZOH51gOmok0EL64Znk0KMp37TmxCgFOFegLfLkQ7SRLoXQMI8McUAgciRXw6oIMQzh5
   MaxBanner: 59af4b14840c58e4
   MaxInterstitial: 6bca4bf3ac6f5557
   MaxRewarded: afc77004c805091e
   BannerSize: 1
   BannerPos: 3
   MrecPos: 2
-  PrivacyPolicy: 
+  PrivacyPolicy: https://friedchickengames.com/privacy-policy-fried-checken-games/
   MoreGames: 
   BannerStatus: 0
   MrecStatus: 0
-  MaxBannerPos: 6
 --- !u!1 &1053685229918441950
 GameObject:
   m_ObjectHideFlags: 0

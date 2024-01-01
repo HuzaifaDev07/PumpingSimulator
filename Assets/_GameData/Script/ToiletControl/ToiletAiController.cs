@@ -29,7 +29,7 @@ namespace Hz
             yield return new WaitForSeconds(7f);
             splineMove.Pause();
             splineMove.reverse = false;
-            this.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 }

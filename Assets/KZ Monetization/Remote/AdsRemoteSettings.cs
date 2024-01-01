@@ -66,7 +66,5 @@ public class AdsRemoteSettings : ScriptableObject
 
     public bool ShowInternetPopup = true;
     public bool ShowMediationOn2GB = false;
-    public int AppOpenAfterXInterstitials = 3;
-    public int AppOpenAfterXRewarded = 3;
     public int NextInterstitialDelay = 10;
 }

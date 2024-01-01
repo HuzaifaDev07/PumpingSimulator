@@ -51,7 +51,7 @@ namespace AR
             yield return new WaitForSeconds(1f);
             //  totalIceCreams--;
            // iceCreamInFridge[Random.Range(0, iceCreamInFridge.Length)].SetActive(false);
-            npc.SodaCan.SetActive(true);
+            npc.IceCream.SetActive(true);
             npc.CheckPurchasedItem(PurchasedItem.IceCream);
 
             yield return new WaitForSeconds(1f);

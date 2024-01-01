@@ -27,8 +27,8 @@ public class AdNetworkAdmob : AdNetworkBase
     #region SDK Initialize
     public override void Initialize()
     {
-        //MobileAds.SetiOSAppPauseOnBackground(true);
-        SetConfigurations();
+        MobileAds.SetiOSAppPauseOnBackground(true);
+        //SetConfigurations();
         MobileAds.RaiseAdEventsOnUnityMainThread = false;
         MobileAds.Initialize(HandleInitCompleteAction);
         AppStateEventNotifier.AppStateChanged += AdsManager.Instance.OnAppStateChanged;
@@ -510,9 +510,14 @@ public class AdNetworkAdmob : AdNetworkBase
     #region Others
     public AdRequest CreateAdRequest()
     {
-        return new AdRequest.Builder()
-            .AddExtra("npa", AdsManager.Instance.PersonalizedAds ? "0" : "1")
-            .Build();
+        if (AdsManager.Instance.PersonalizedAds)
+        {
+            return new AdRequest.Builder()
+                .AddExtra("npa", AdsManager.Instance.PersonalizedAds ? "0" : "1")
+                .Build();
+        }
+
+        return new AdRequest();
     }
 
     #endregion

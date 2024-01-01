@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-using KZ.Utils;
 using GoogleMobileAds.Api;
 using GoogleMobileAds.Common;
+using GoogleMobileAds.Ump.Api;
 
-public class AdsManager : SingletonX<AdsManager>
+public class AdsManager : MonoBehaviour
 {
+    public const string Version = "2.3.0";
+
     #region Instance
+    public static AdsManager Instance { get; private set; }
     void Awake()
     {
-        if (m_Instance == null)
+        if (Instance == null)
         {
-            m_Instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
             Debug.unityLogger.logEnabled = AdConstants.IsDebugBuild;
         }
@@ -39,10 +42,10 @@ public class AdsManager : SingletonX<AdsManager>
     public string[] BannerIDs, MrecIDs, InterstitialIDs, RewardedIDs, AppOpenIDs;
 
     [Header("AppLovin IDs")]
+    public string MaxSDKKey = "d5sDfeSTdolnmhpfxJCZOH51gOmok0EL64Znk0KMp37TmxCgFOFegLfLkQ7SRLoXQMI8McUAgciRXw6oIMQzh5";
     public string MaxBanner;
     public string MaxInterstitial;
     public string MaxRewarded;
-    public const string MaxSDKKey = "d5sDfeSTdolnmhpfxJCZOH51gOmok0EL64Znk0KMp37TmxCgFOFegLfLkQ7SRLoXQMI8McUAgciRXw6oIMQzh5";
 
     [Header("Banner Settings")]
     public BannerWidth BannerSize = BannerWidth.Full;
@@ -101,26 +104,46 @@ public class AdsManager : SingletonX<AdsManager>
 
     #region Initialization
 
-    [ContextMenu("Initialize_AdNetworks")]
-    public void Initialize_AdNetworks()
+    private void Start()
     {
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
         ThreadDispatcher.Initialize();
         AdsRemoteSettings.Initialize();
         GameAnalyticsSDK.GameAnalytics.Initialize();
-
-        StartCoroutine(AdsRoutine());
     }
 
-    IEnumerator AdsRoutine()
+    public void Initialize_Consent()
     {
-        var waitForInternet = new WaitForSecondsRealtime(15);
+        ConsentManager.GatherConsent(TestAds, IsForFamily, (status, message) =>
+        {
+            MonetizationLogger.Log($"UMP Response | Status : {status}, Message : {message}");
+            PersonalizedAds = (status == ConsentStatus.NotRequired);
+            StartCoroutine(Initialize_AdNetworks());
+        });
+    }
+
+    IEnumerator Retry_Consent()
+    {
+        ConsentManager.GatherConsent(TestAds, IsForFamily, (status, message) =>
+        {
+            MonetizationLogger.Log($"Retry UMP Response | Status : {status}, Message : {message}");
+        });
+
+        while (ConsentManager.IsFetching) yield return null;
+    }
+
+
+    IEnumerator Initialize_AdNetworks()
+    {
+        var waitForInternet = new WaitForSecondsRealtime(5);
         while (!AdConstants.InternetAvailable)
             yield return waitForInternet;
 
-        var waitForOneSecond = new WaitForSecondsRealtime(1);
+        if (ConsentManager.ConsentStillRequired)
+            yield return StartCoroutine(Retry_Consent());
 
-        yield return new WaitForEndOfFrame(); RemoteSettings.Initialize();
+        WaitForSeconds waitForOneSecond = new WaitForSeconds(1);
+        yield return waitForOneSecond; RemoteSettings.Initialize();
         yield return waitForOneSecond; Admob.Initialize();
         yield return waitForOneSecond; FirebaseManager.Initialize();
         //yield return waitForOneSecond; AppsFlyerSDK.AppsFlyerAdRevenue.start();
@@ -172,7 +195,7 @@ public class AdsManager : SingletonX<AdsManager>
 
     #region Monetization Hack
 
-    private void Start()
+    private void OnEnable()
     {
         bool CanHack = (isFirstTime && Input.multiTouchEnabled) || AdConstants.IsDebugBuild;
         if (CanHack) StartCoroutine(HackCoroutine());
@@ -312,20 +335,6 @@ public class AdsManager : SingletonX<AdsManager>
 
     #region Interstital
 
-    int InterstitialCount = 0;
-    void CheckInterstitialCount()
-    {
-        InterstitialCount++;
-        if (InterstitialCount > AdsRemoteSettings.Instance.AppOpenAfterXInterstitials)
-        {
-            ReadyForAppOpen = true;
-            InterstitialCount = 0;
-            AppOpenTimer = 0;
-        }
-        else
-            ExtendAppOpenTime();
-    }
-
     public void ShowInterstitial(string placementName)
     {
         AnalyticsManager.PlacementName = placementName;
@@ -346,10 +355,11 @@ public class AdsManager : SingletonX<AdsManager>
         if (!AdConstants.AdsRemoved && HasInterstitial)
         {
             ExtendInterstitialTime();
-            CheckInterstitialCount();
 
             if (Applovin.HasInterstitial(true)) { Applovin.ShowInterstitial(); }
             else if (Admob.HasInterstitial(true)) { Admob.ShowInterstitial(); }
+       
+            
         }
     }
 
@@ -374,7 +384,6 @@ public class AdsManager : SingletonX<AdsManager>
             if (Admob.HasInterstitial(true))
             {
                 ExtendInterstitialTime();
-                CheckInterstitialCount();
                 Admob.ShowInterstitial();
             }
         }
@@ -388,7 +397,6 @@ public class AdsManager : SingletonX<AdsManager>
         if (!AdConstants.AdsRemoved && Admob.HasInterstitial(true))
         {
             ExtendInterstitialTime();
-            CheckInterstitialCount();
             Admob.ShowInterstitial();
         }
     }
@@ -397,21 +405,6 @@ public class AdsManager : SingletonX<AdsManager>
     #endregion
 
     #region Rewarded
-
-    int RewardedCount = 0;
-    void CheckRewardedCount()
-    {
-        RewardedCount++;
-        if (RewardedCount > AdsRemoteSettings.Instance.AppOpenAfterXRewarded)
-        {
-            ReadyForAppOpen = true;
-            RewardedCount = 0;
-            AppOpenTimer = 0;
-        }
-        else
-            ExtendAppOpenTime();
-    }
-
 
     public void ShowRewarded(Action UserReward, string placementName)
     {
@@ -424,8 +417,8 @@ public class AdsManager : SingletonX<AdsManager>
         OnRewardComplete = UserReward;
         AnalyticsManager.PlacementName = placementName;
 
-        if (Applovin.HasRewarded(true)) { ExtendInterstitialTime(); CheckRewardedCount(); Applovin.ShowRewardedAd(); }
-        else if (Admob.HasRewarded(true)) { ExtendInterstitialTime(); CheckRewardedCount(); Admob.ShowRewardedAd(); }
+        if (Applovin.HasRewarded(true)) { ExtendInterstitialTime(); Applovin.ShowRewardedAd(); }
+        else if (Admob.HasRewarded(true)) { ExtendInterstitialTime(); Admob.ShowRewardedAd(); }
         else ShowInterstitial(UserReward, placementName);
     }
 

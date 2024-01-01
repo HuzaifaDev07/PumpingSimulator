@@ -41,8 +41,6 @@ namespace AR
         public void SpawnCustomer()
         {
             MachineUnlock(0);
-            MachineUnlock(1);
-            MachineUnlock(2);
         }
         #region SpawnCustomers
         public void MachineUnlock(int index)

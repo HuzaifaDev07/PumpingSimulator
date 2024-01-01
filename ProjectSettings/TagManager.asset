@@ -24,6 +24,8 @@ TagManager:
   - Pumphandle
   - FuelPlace
   - Car
+  - NPC
+  - Blocker
   layers:
   - Default
   - TransparentFX

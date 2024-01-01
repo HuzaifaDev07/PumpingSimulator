@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Transform PlayerFuelingPos;
     [SerializeField] FuelMeterDisplay fuelMeterDisplay;
     [SerializeField] GameObject FuelDecreaser;
-
+    bool LoadInGameAd = true;
     public static bool NotEnoughFuel = false;
 
 
@@ -59,7 +59,10 @@ public class GameManager : MonoBehaviour
     public int TrashCounter;
     public bool PumpPick;
 
+    int adCounter = 0;
     Coroutine refCoroutine;
+
+    [SerializeField] GameObject playerCounterPos;
 
     [Space(20)]
     [Header("--------- Tab_Working_Assets ---------")]
@@ -105,14 +108,16 @@ public class GameManager : MonoBehaviour
         }
         if (PrefData.GetTask() == 4)
         {
-            _uiManager.ExtraEarnOption.SetActive(true);
             PrefData.SetTask(false, 5);
+            _uiManager.fadeScreen.SetActive(false);
+            _uiManager.ExtraEarnOption.SetActive(true);
         }
 
         if (PrefData.GetTask() >= 3)
         {
-            _uiManager.ObjectiveTxt.gameObject.SetActive(false);
+            //_uiManager.ObjectiveTxt.gameObject.SetActive(false);
             marketManager.OpenShop();
+            playerCounterPos.SetActive(true);
         }
 
         ActiveFuelName();
@@ -123,6 +128,13 @@ public class GameManager : MonoBehaviour
     {
         if (PrefData.GetTask() < 3)
         {
+            _uiManager.fadeScreen.SetActive(true);
+            _uiManager.objectivePannel.SetActive(true);
+            _uiManager.objectivePannel.transform.DOScale(Vector3.one, 0.5f);
+            _uiManager.okButton.SetActive(false);
+            StartCoroutine(DelayOkButton());
+            // ObjectiveTextTyper(index);
+            _uiManager.ControlBtns.SetActive(false);
             _uiManager.ObjectiveTxt.text = Objectives[index];
             TasksObjects[PrefData.GetTask()].SetActive(true);
             if (PrefData.GetTask() != 0)
@@ -150,24 +162,78 @@ public class GameManager : MonoBehaviour
             }
 
             //FuelDecreaser.SetActive(true);
+            _uiManager.ControlBtns.SetActive(true);
             Cars.SetActive(true);
         }
         Debug.LogError(PrefData.GetTask());
     }
+    IEnumerator DelayOkButton()
+    {
+        yield return new WaitForSeconds(3);
+        _uiManager.okButton.SetActive(true);
+    }
+    //public void ObjectiveTextTyper(int index)
+    //{
+    //    _uiManager.okButton.SetActive(false);
+    //    _uiManager.ObjectiveTxt.text = "";
+    //    Debug.LogError("TypingStart");
+    //    StartCoroutine(TypeSentence(Objectives[index]));
+    //}
+    //IEnumerator TypeSentence(string sentence)
+    //{
+    //    foreach (char letter in sentence)
+    //    {
+    //        _uiManager.ObjectiveTxt.text += letter;
+    //        if (letter == '.' || letter == '?')
+    //        {
+    //            break;
+    //        }
+    //        yield return new WaitForSeconds(0.08f);
 
+    //    }
+    //    Debug.LogError("SentenceComplete");
+    //    _uiManager.okButton.SetActive(true);
+    //}
+
+    public void OK() //ToCloseObjectivePannel
+    {
+        adCounter++;
+        if (adCounter % 2 == 0)
+        {
+            AdsManager.Instance.ShowInterstitial("ObjectivePannelColse");
+            CheckInGameAdState(false);
+        }
+        _uiManager.objectivePannel.transform.DOScale(Vector3.zero, 0.5f);
+        StartCoroutine(DelayDisableObjectivePannel());
+    }
+    IEnumerator DelayDisableObjectivePannel()
+    {
+        yield return new WaitForSeconds(0.75f);
+        _uiManager.fadeScreen.SetActive(false);
+        _uiManager.objectivePannel.SetActive(false);
+        _uiManager.ControlBtns.SetActive(true);
+        if (PrefData.GetTask() == 3)
+        {
+            PrefData.SetTask(false, 5);
+            _uiManager.ExtraEarnOption.SetActive(true);
+            _uiManager.TabBtn.SetActive(true);
+        }
+
+
+    }
     public void ActiveFuelName()
     {
         if (PrefData.GetPumpPurchased() > 0)
         {
-            _uiManager.ObjectiveTxt.transform.parent.gameObject.SetActive(false);
+            //_uiManager.ObjectiveTxt.transform.parent.gameObject.SetActive(false);
             FuelName.SetActive(true);
             _uiManager.StationNameInput.text = PlayerPrefs.GetString("PumpName");
         }
     }
 
-
     public void CarSelled()
     {
+        CheckInGameAdState(false);
         AdsManager.Instance.ShowInterstitial("CarSelled");
         PrefData.SetTask(true, 1);
         ShowObjective(PrefData.GetTask());
@@ -182,6 +248,7 @@ public class GameManager : MonoBehaviour
 
     public void WatchAdSellCar()
     {
+        CheckInGameAdState(false);
         AdsManager.Instance.ShowRewarded(AfterRewardSellCar, "SellCar");
     }
 
@@ -199,18 +266,32 @@ public class GameManager : MonoBehaviour
         playerManager.Audios.Play();
     }
 
-    public void CallRewardFreePump() => AdsManager.Instance.ShowRewarded(RewardedPumpPurchase, "PumpPurchase");
+    public void CallRewardFreePump()
+    {
+        CheckInGameAdState(false);
+        AdsManager.Instance.ShowRewarded(RewardedPumpPurchase, "PumpPurchase");
+    }
+
+    public bool CheckInGameAdState(bool load)
+    {
+        LoadInGameAd = load;
+        return LoadInGameAd;
+    }
 
     IEnumerator ShowAd()
     {
-        yield return new WaitForSeconds(60);
+        yield return new WaitForSeconds(40);
         _uiManager.Joystick.SetActive(false);
         _uiManager.LoadingAdPopUp.SetActive(true);
         yield return new WaitForSeconds(2);
-        AdsManager.Instance.ShowInterstitial("_30SecGameAd");
+        if (CheckInGameAdState(LoadInGameAd))
+        {
+            AdsManager.Instance.ShowInterstitial("_30SecGameAd");
+            CheckInGameAdState(LoadInGameAd);
+        }
         _uiManager.LoadingAdPopUp.SetActive(false);
         _uiManager.Joystick.SetActive(true);
-
+        LoadInGameAd = true;
         refCoroutine = StartCoroutine(ShowAd());
     }
 
@@ -265,8 +346,8 @@ public class GameManager : MonoBehaviour
     public void PickPickFuelPump()
     {
         FuelSystem.GetFuelIndex();  ///////  ---------------- >>>>>>>   Getting Value From FuelSystem Object;
-        playerManager.transform.position = PlayerFuelingPos.localPosition;
-        playerManager.transform.rotation = PlayerFuelingPos.localRotation;
+        playerManager.transform.position = PlayerFuelingPos.position;
+        playerManager.transform.rotation = PlayerFuelingPos.rotation;
         Debug.Log("Call");
         _uiManager.Joystick.SetActive(false);
         objectDetect.DetectObject.transform.SetParent(playerManager.PumpHandler.transform);
@@ -293,12 +374,13 @@ public class GameManager : MonoBehaviour
     IEnumerator TankFilled()
     {
         yield return new WaitForSeconds(FuelSystem.GetFuelTime());
-        _uiManager.Joystick.SetActive(true);
+        _uiManager.FuelFilledPopUp.SetActive(true);
+        _uiManager.FuelFilledPopUp.transform.DOScale(Vector3.one, 0.5f);
+        _uiManager.ControlBtns.SetActive(false);
         objectDetect.DetectObject.transform.SetParent(null);
         _uiManager.UpdateCash(FuelSystem.GetFuelEarnAmount(), true);
         Instantiate(_uiManager.EarnMoney, _uiManager.Canvas.transform);
-        objectDetect.DetectObject.transform.position = PumpReturnPos.position;
-        objectDetect.DetectObject.transform.rotation = PumpReturnPos.rotation;
+        objectDetect.DetectObject.transform.SetPositionAndRotation(PumpReturnPos.position, PumpReturnPos.rotation);
         objectDetect.CarDetectRef.GetComponent<CarEssentials>().StartMoveCar();
         objectDetect.enabled = true;
         if (PrefData.GetTask() == 3)
@@ -307,6 +389,22 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         PumpPick = false;
+    }
+    public void Okay() // after fuel filled pop up close
+    {
+        _uiManager.FuelFilledPopUp.transform.DOScale(Vector3.zero, 0.5f);
+        StartCoroutine(DisableFuelFilledPopUp());
+    }
+    IEnumerator DisableFuelFilledPopUp()
+    {
+        yield return new WaitForSeconds(0.75f);
+        _uiManager.FuelFilledPopUp.SetActive(false);
+        if (!PumpPick)
+        {
+            _uiManager.ControlBtns.SetActive(true);
+        }
+        AdsManager.Instance.ShowInterstitial("FuelFilled");
+        CheckInGameAdState(false);
     }
 
     private void OnDisable()
@@ -344,7 +442,8 @@ public class GameManager : MonoBehaviour
     }
     public void CloseTab()
     {
-        
+        CheckInGameAdState(false);
+
         AdsManager.Instance.ShowInterstitial("MobileClosed");
         _uiManager.ObjectiveTxt.gameObject.SetActive(false);
         MobilePhone.GetComponent<DOTweenAnimation>().DOPlayBackwards();
@@ -368,6 +467,7 @@ public class GameManager : MonoBehaviour
     }
     public void RewardBaseBuyItem()
     {
+        CheckInGameAdState(false);
         AdsManager.Instance.ShowRewarded(BuyItemOnReward, "OnlineItemBuy");
     }
     public bool BuybyReward;

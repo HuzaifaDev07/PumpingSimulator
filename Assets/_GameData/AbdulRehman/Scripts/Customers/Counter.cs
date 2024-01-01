@@ -24,7 +24,7 @@ namespace AR
                 npcAgent.isStopped = true;
                 npcStates.SetCustomerState(CustomerState.Billing);
                 npcStates.UpdateCustomerState();
-                
+
                 WalkToIdle();
                 if (isItemOnCounter)
                 {
@@ -76,7 +76,7 @@ namespace AR
         }
         IEnumerator DelayDeal()
         {
-            yield return new WaitForSeconds(1.25f);
+            yield return new WaitForSeconds(1f);
             npcStates.UpdateItemType();
             MarketManager.instance.Billing();
 
@@ -91,15 +91,19 @@ namespace AR
                 switch (npcStates.purchasedItem)
                 {
                     case PurchasedItem.Soda:
+                       // Instantiate(UiManager.instance.EarnCoinFromMarket, UiManager.instance.Canvas.transform);
                         UiManager.instance.UpdateCash(MarketManager.instance.SodaPrice, true);
                         break;
                     case PurchasedItem.Coffee:
+                     //   Instantiate(UiManager.instance.EarnCoinFromMarket, UiManager.instance.Canvas.transform);
                         UiManager.instance.UpdateCash(MarketManager.instance.CoffeePrice, true);
                         break;
                     case PurchasedItem.Chips:
+                      //  Instantiate(UiManager.instance.EarnCoinFromMarket, UiManager.instance.Canvas.transform);
                         UiManager.instance.UpdateCash(MarketManager.instance.ChipsPrice, true);
                         break;
                     case PurchasedItem.IceCream:
+                      //  Instantiate(UiManager.instance.EarnCoinFromMarket, UiManager.instance.Canvas.transform);
                         UiManager.instance.UpdateCash(MarketManager.instance.IceCreamPrice, true);
                         break;
                 }
@@ -116,7 +120,8 @@ namespace AR
                 npcStates.SetCustomerState(CustomerState.WalkingOut);
                 npcStates.UpdateCustomerState();
                 npcStates.enabled = false;
-                MarketManager.instance.PriceText.text = "";
+                MarketManager.instance.itemName.text = "";
+                MarketManager.instance.itemPrice.text = "";
                 CustomerManager.instance._customersInQueue.Remove(npc);
                 if (CustomerManager.instance.stoppingIndex > 0)
                 {

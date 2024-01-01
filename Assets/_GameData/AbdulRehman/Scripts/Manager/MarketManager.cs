@@ -12,6 +12,7 @@ namespace AR
         [HideInInspector] public GameObject objectInHand;
         [SerializeField] GameObject[] objectOnCounter;
         [SerializeField] GameObject priceTextObj;
+        [SerializeField] GameObject UserCounterTrigger;
 
         [Header("INTEGERS")]
         public int SodaPrice;
@@ -20,7 +21,8 @@ namespace AR
         public int ChipsPrice;
 
         [Header("TEXT")]
-        public TextMeshPro PriceText;
+        public TextMeshPro itemName;
+        public TextMeshPro itemPrice;
 
         [Header("BOOLEANS")]
         public bool isOnCounter;
@@ -29,6 +31,10 @@ namespace AR
         void Awake()
         {
             instance = this;
+            if (PrefData.GetTask() >= 5)
+                UserCounterTrigger.SetActive(true);
+            else
+                UserCounterTrigger.SetActive(false);
         }
         public void OpenShop()
         {
@@ -47,22 +53,26 @@ namespace AR
         public void BoughtSoda()
         {
             objectOnCounter[0].SetActive(true); //SodaOnCounter
-            PriceText.text = SodaPrice.ToString() + "$";
+            itemName.text = objectOnCounter[0].name;
+            itemPrice.text = "<color=green>" + SodaPrice.ToString() + "$</color>";
         }
         public void BoughtChips()
         {
             objectOnCounter[1].SetActive(true); //ChipsOnCounter
-            PriceText.text = ChipsPrice.ToString() + "$";
+            itemName.text = objectOnCounter[1].name;
+            itemPrice.text = "<color=green>" + ChipsPrice.ToString() + "$</color>";
         }
         public void BoughtCoffee()
         {
             objectOnCounter[2].SetActive(true); //CoffeeOnCounter
-            PriceText.text = CoffeePrice.ToString() + "$";
+            itemName.text = objectOnCounter[2].name;
+            itemPrice.text = "<color=green>" + CoffeePrice.ToString() + "$</color>";
         }
         public void BoughtIceCream()
         {
             objectOnCounter[3].SetActive(true); //IceCreamOnCounter
-            PriceText.text = IceCreamPrice.ToString() + "$";
+            itemName.text = objectOnCounter[3].name;
+            itemPrice.text = "<color=green>" + IceCreamPrice.ToString() + "$</color>";
         }
         #endregion
         IEnumerator ShoppingComplete()
@@ -71,9 +81,9 @@ namespace AR
             {
                 yield return new WaitForSeconds(3);
                 foreach (GameObject obj in objectOnCounter)
-                {               
+                {
                     obj.SetActive(false);
-                }          
+                }
             }
         }
     }

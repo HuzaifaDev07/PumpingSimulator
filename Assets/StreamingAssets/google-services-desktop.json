@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "639036656365",
+    "project_id": "kz-gas-simulator-pumping-games",
+    "storage_bucket": "kz-gas-simulator-pumping-games.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639036656365:android:35511bbb13c9d97cdd9ae4",
+        "android_client_info": {
+          "package_name": "com.kz.gas.station.car.games.pumping.simulator2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsmN3PLZw5RFollOCQ7VsgOj3LcogFsGc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

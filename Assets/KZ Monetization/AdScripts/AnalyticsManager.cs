@@ -28,6 +28,9 @@ public static class AnalyticsManager
             (data.Format == AdFormat.Interstitial || data.Format == AdFormat.Rewarded) ? new Parameter("ad_placement", PlacementName.ToLower()) : new Parameter("no_placement", "nothing")
             };
             FirebaseAnalytics.LogEvent("ad_impression", impressionParameters);
+#if UNITY_IOS
+            FirebaseAnalytics.LogEvent("paid_ad_impression", impressionParameters);
+#endif
         }
 
         //Rev Event for Adjust
@@ -60,6 +63,9 @@ public static class AnalyticsManager
             };
 
             FirebaseAnalytics.LogEvent("ad_impression", impressionParameters);
+#if UNITY_IOS
+            FirebaseAnalytics.LogEvent("paid_ad_impression", impressionParameters);
+#endif
         }
 
         //Rev Event for Adjust
@@ -206,4 +212,4 @@ public static class AnalyticsManager
 
 public enum AnalyticsType { Extras, GameData }
 public enum AdNetwork { Admob, Applovin, ironSource }
-public enum AdFormat { Banner, MREC, Interstitial, Rewarded, AppOpen, NativeAd,RewardedInt }
+public enum AdFormat { Banner, MREC, Interstitial, Rewarded, AppOpen, NativeAd, RewardedInt }
