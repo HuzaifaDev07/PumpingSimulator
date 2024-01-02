@@ -1,24 +1,28 @@
+using System;
 using UnityEngine;
 
 public static class NumberConverter
 {
     public static string ConvertNumberToShortFormat(float number)
     {
-        if (number >= 1000000000)
+        long longNumber = (long)number;
+
+        if (longNumber >= 1000000000)
         {
-            return (number / 1000000000f).ToString("F2") + "B";
+            return $"{longNumber / 1000000000},{Math.Abs((longNumber % 1000000000) / 10000000):D2}$b";
         }
-        else if (number >= 1000000)
+        else if (longNumber >= 1000000)
         {
-            return (number / 1000000f).ToString("F2") + "M";
+            return $"{longNumber / 1000000},{Math.Abs((longNumber % 1000000) / 10000):D2}$m";
         }
-        else if (number >= 1000)
+        else if (longNumber >= 1000)
         {
-            return (number / 1000f).ToString("F1") + "k";
+            return $"{longNumber / 1000},{Math.Abs((longNumber % 1000) / 10):D1}$k";
         }
         else
         {
-            return number.ToString("F0");
+            return longNumber.ToString("D");
         }
     }
+
 }

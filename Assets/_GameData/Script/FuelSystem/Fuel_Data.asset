@@ -15,16 +15,16 @@ MonoBehaviour:
   fuelingData:
   - FuelAmount: 50
     FillTime: 3
-    FuelingEarn: 36
+    FuelingEarn: 50
   - FuelAmount: 80
     FillTime: 3
-    FuelingEarn: 45
+    FuelingEarn: 68
   - FuelAmount: 90
     FillTime: 3
-    FuelingEarn: 55
+    FuelingEarn: 70
   - FuelAmount: 110
     FillTime: 3
-    FuelingEarn: 85
+    FuelingEarn: 90
   - FuelAmount: 120
     FillTime: 3
-    FuelingEarn: 110
+    FuelingEarn: 150

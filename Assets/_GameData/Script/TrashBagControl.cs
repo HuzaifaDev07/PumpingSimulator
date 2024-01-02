@@ -34,11 +34,45 @@ public class TrashBagControl : MonoBehaviour
                     break;
             }
         }
+        else if (PrefData.GetPumpUpgrade() == 1)
+        {
+            switch (trashType)
+            {
+                case TrashType.trashBag:
+                    transform.gameObject.tag = "Trash";
+                    break;
+                case TrashType.trashCan:
+                    transform.gameObject.tag = "Dustbin";
+                    break;
+                default:
+                    break;
+            }
+        }
         else
         {
             hudNavigationElement.enabled = false;
             transform.gameObject.tag = "Untagged";
         }
+
+
+
     }
 
+    private void OnEnable()
+    {
+        if (PrefData.GetPumpUpgrade() == 1)
+        {
+            switch (trashType)
+            {
+                case TrashType.trashBag:
+                    transform.gameObject.tag = "Trash";
+                    break;
+                case TrashType.trashCan:
+                    transform.gameObject.tag = "Dustbin";
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }

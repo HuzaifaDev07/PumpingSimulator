@@ -38,13 +38,16 @@ public class UiManager : MonoBehaviour
     public GameObject objectivePannel;
     public GameObject fadeScreen;
     public GameObject okButton;
-   // public GameObject ObjectivePannel;
+    public GameObject UpgradePumpPanel;
+    public GameObject AddMarketPanel;
+    // public GameObject ObjectivePannel;
     [Space(20)]
     [Header("------ Text ------")]
     public Text CashText;
     public Text[] Station;
     public Text GasStationMeter;
     public Text MarketItemText;
+    public Text UpgradePumpObject;
 
     public InputField StationNameInput;
     [Space(20)]
@@ -92,7 +95,6 @@ public class UiManager : MonoBehaviour
         else
             PrefData.SetCash(false, amount);
         CashText.text = ConvertNumber(PrefData.GetCash());
-
     }
     /// <summary>
     ///  Subract Cash On Buy Object
@@ -108,7 +110,7 @@ public class UiManager : MonoBehaviour
     /// </summary>
     public void UpdateCash()
     {
-        CashText.text = ConvertNumber(PrefData.GetCash()) + "$";
+        CashText.text = ConvertNumber(PrefData.GetCash());
     }
 
     string ConvertNumber(float value)

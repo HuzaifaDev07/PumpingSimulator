@@ -50,6 +50,13 @@ public class PlayerManager : MonoBehaviour
 
     public void DispatchTrash()
     {
+        if (PrefData.GetPumpUpgrade() == 1)
+        {
+            GameManager.Instance.TrashCounter++;
+            GameManager.Instance.TaskCounter++;
+            GameManager.Instance.TaskCounterUpdate();
+        }
+
         GameManager.Instance.Dustbin.hudNavigationElement.enabled = false;
         handFilled = false;
         DispatchParticle.SetActive(true);
@@ -59,10 +66,17 @@ public class PlayerManager : MonoBehaviour
             GameManager.Instance.TrashCounter++;
         if (Application.isPlaying && GameManager.Instance.TrashCounter == 3)
         {
+            if (PrefData.GetPumpUpgrade() == 1)
+            {
+                GameManager.Instance.ShowUpgradePumpPopUp();
+            }
+            else
+            {
+                PrefData.SetTask(false, 3);
+                GameManager.Instance.ShowObjective(PrefData.GetTask());
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
             Debug.LogError("TrashedCall");
-            PrefData.SetTask(false, 3);
-            GameManager.Instance.ShowObjective(PrefData.GetTask());
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
         FillTrashDispatcher();

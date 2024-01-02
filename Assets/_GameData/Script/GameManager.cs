@@ -5,6 +5,20 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+[System.Serializable]
+public class UpgradeItems
+{
+    [SerializeField] string itemName = "Item0";
+    public GameObject[] ActiveObject;
+    public GameObject[] DisableObject;
+    public int UpgradeAmount;
+    public int ToDoForUpgrade;
+    public bool TrashTask;
+    [TextArea]
+    public string UpgradeItemObjective;
+}
 
 [System.Serializable]
 public class ExtarEarnItems
@@ -13,6 +27,7 @@ public class ExtarEarnItems
     public GameObject ItemObjects;
     public SpawnPlaceChecker[] SpaceCheck;
     public bool Spawnable;
+
 }
 
 
@@ -28,7 +43,9 @@ public class GameManager : MonoBehaviour
     public FuelData FuelSystem;
     public OnlineStoreData StoreData;
     public UiManager _uiManager;
-
+    [Space(10)]
+    public UpgradeItems[] _upgradeItems;
+    [Space(10)]
     [SerializeField] PlayerManager playerManager;
     [SerializeField] MarketManager marketManager;
     [SerializeField] GameObject HudCanvas;
@@ -38,11 +55,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] ObjectDetect objectDetect;
     [SerializeField] Transform PumpHandlePos;
     [SerializeField] Transform OldGasPumpReturnPos;
+    [SerializeField] Transform NewGasPumpPos;
     [SerializeField] Transform PlayerFuelingPos;
     [SerializeField] FuelMeterDisplay fuelMeterDisplay;
     [SerializeField] GameObject OldPumpStation;
     [SerializeField] GameObject NewPumpStation;
     [SerializeField] GameObject FuelDecreaser;
+    [SerializeField] GameObject UpgradeNewPumpScene;
+    [SerializeField] GameObject marketObject;
     bool LoadInGameAd = true;
     public static bool NotEnoughFuel = false;
 
@@ -99,10 +119,10 @@ public class GameManager : MonoBehaviour
         }
 
 
-
         ActiveFuelName();
         _uiManager.UpdateCash();
         _uiManager.FadeScreen.SetActive(true);
+
         if (PrefData.GetTask() == 0)
         {
             ShowObjective(PrefData.GetTask());
@@ -113,22 +133,64 @@ public class GameManager : MonoBehaviour
             playerManager.transform.rotation = PlayerSpawn.rotation;
             ShowObjective(PrefData.GetTask());
         }
+
         if (PrefData.GetTask() == 4)
         {
             PrefData.SetTask(false, 5);
             _uiManager.fadeScreen.SetActive(false);
             _uiManager.ExtraEarnOption.SetActive(true);
         }
-
+        Debug.LogError(PrefData.GetPumpUpgrade() + "Up");
+        if (PrefData.GetPumpUpgrade() >= 1)
+        {
+            ActiveUpgradeEnvAssets();
+        }
         if (PrefData.GetTask() >= 3)
         {
+            TaskCounterUpdate();
             //_uiManager.ObjectiveTxt.gameObject.SetActive(false);
             marketManager.OpenShop();
             playerCounterPos.SetActive(true);
         }
-
+       
 
         refCoroutine = StartCoroutine(ShowAd());
+    }
+
+    public void ActiveUpgradeEnvAssets()
+    {
+        for (int i = 0; i < _upgradeItems.Length; i++)
+        {
+            if (i <= PrefData.GetPumpUpgrade())
+            {
+                for (int j = 0; j < _upgradeItems[i].ActiveObject.Length; j++)
+                {
+                    _upgradeItems[i].ActiveObject[j].SetActive(true);
+                }
+            }
+        }
+
+        for (int i = 0; i < _upgradeItems.Length; i++)
+        {
+            if (i <= PrefData.GetPumpUpgrade())
+            {
+                for (int j = 0; j < _upgradeItems[i].DisableObject.Length; j++)
+                {
+                    _upgradeItems[i].DisableObject[j].SetActive(false);
+                }
+            }
+        }
+
+        //for (int i = 0; i < _upgradeItems[PrefData.GetPumpUpgrade()].DisableObject.Length; i++)
+        //{
+        //    _upgradeItems[i].DisableObject[i].SetActive(false);
+        //}
+    }
+
+    public void ShowUpgradePumpPopUp()
+    {
+        _uiManager.UpgradePumpPanel.SetActive(true);
+        _uiManager.UpgradePumpObject.text = _upgradeItems[PrefData.GetPumpUpgrade()].UpgradeItemObjective;
     }
 
     public void ShowObjective(int index)
@@ -170,16 +232,17 @@ public class GameManager : MonoBehaviour
 
             //FuelDecreaser.SetActive(true);
             _uiManager.ControlBtns.SetActive(true);
-            if (PrefData.GetPumpUpgrade() == 0)
-            {
-                OldStationCars.SetActive(true);
-                NewStationCars.SetActive(false);
-            }
-            else
-            {
-                OldStationCars.SetActive(false);
-                NewStationCars.SetActive(true);
-            }
+            OldStationCars.SetActive(true);
+            //if (PrefData.GetPumpUpgrade() == 0)
+            //{
+            //    OldStationCars.SetActive(true);
+            //    NewStationCars.SetActive(false);
+            //}
+            //else
+            //{
+            //    OldStationCars.SetActive(false);
+            //    NewStationCars.SetActive(true);
+            //}
 
         }
         Debug.LogError(PrefData.GetTask());
@@ -369,7 +432,7 @@ public class GameManager : MonoBehaviour
     public void PickPickFuelPump()
     {
         FuelSystem.GetFuelIndex();  ///////  ---------------- >>>>>>>   Getting Value From FuelSystem Object;
-        
+
         playerManager.GetComponent<CharacterController>().enabled = false;
         playerManager.transform.SetParent(PlayerFuelingPos);
         playerManager.transform.position = PlayerFuelingPos.position;
@@ -400,6 +463,15 @@ public class GameManager : MonoBehaviour
     IEnumerator TankFilled()
     {
         yield return new WaitForSeconds(FuelSystem.GetFuelTime());
+        if (!_upgradeItems[PrefData.GetPumpUpgrade()].TrashTask)
+        {
+            TaskCounter++;
+            if (TaskCounter >= _upgradeItems[PrefData.GetPumpUpgrade()].ToDoForUpgrade)
+            {
+                ShowUpgradePumpPopUp();
+            }
+        }
+        TaskCounterUpdate();
         playerManager.GetComponent<CharacterController>().enabled = true;
         playerManager.transform.SetParent(null);
         _uiManager.FuelFilledPopUp.SetActive(true);
@@ -411,13 +483,26 @@ public class GameManager : MonoBehaviour
         objectDetect.DetectObject.transform.SetPositionAndRotation(OldGasPumpReturnPos.position, OldGasPumpReturnPos.rotation);
         objectDetect.CarDetectRef.GetComponent<CarEssentials>().StartMoveCar();
         objectDetect.enabled = true;
-        if (PrefData.GetTask() == 3)
-        {
-            PrefData.SetTask(false, 4);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
+        //if (PrefData.GetTask() == 3)
+        //{
+        //    PrefData.SetTask(false, 4);
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //}
         PumpPick = false;
     }
+
+    public void UpgradePump()
+    {
+        TaskCounter = 0;
+        _uiManager.UpgradePumpPanel.SetActive(false);
+        CheckInGameAdState(false);
+        AdsManager.Instance.ShowInterstitial("UpgradePump");
+        ActiveUpgradeEnvAssets();
+        PrefData.SetPumpUpgrade(true, 1);
+        TaskCounterUpdate();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void Okay() // after fuel filled pop up close
     {
         _uiManager.FuelFilledPopUp.transform.DOScale(Vector3.zero, 0.5f);
@@ -584,6 +669,32 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    #region -------- TaskHandler -----------
+    [Space(20)]
+    [Header(" ------  Counter --------")]
+    public GameObject TaskObjective;
+    public int TaskCounter;
+    public Text TaskText;
+    bool block;
+    public void TaskCounterUpdate()
+    {
+        TaskObjective.SetActive(true);
+        TaskText.text = TaskCounter + "/" + _upgradeItems[PrefData.GetPumpUpgrade()].ToDoForUpgrade;
+        if (_upgradeItems[PrefData.GetPumpUpgrade()].TrashTask && !block)
+        {
+            block = true;
+            for (int i = 0; i < TrashBags.Length; i++)
+            {
+                TrashBags[i].gameObject.SetActive(true);
+                TrashBags[i].hudNavigationElement.enabled = true;
+            }
+
+        }
+    }
+
+
+
+    #endregion
 
 
 }
