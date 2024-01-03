@@ -591,8 +591,10 @@ public class GameManager : MonoBehaviour
 
     private void OnDisable()
     {
+        ES3AutoSaveMgr.Current.Save();
         if (Application.isPlaying && refCoroutine != null)
         {
+            
             StopCoroutine(refCoroutine);
         }
     }
