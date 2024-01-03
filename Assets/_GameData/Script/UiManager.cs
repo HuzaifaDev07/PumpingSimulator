@@ -17,11 +17,13 @@ public class UiManager : MonoBehaviour
     public GameObject DropTrashBtn;
     public GameObject PumpHoldBtn;
     public GameObject putPumpinCar;
+    public GameObject UpgradeBtn;
     [Space(20)]
 
     [Header("------- FillBars -------")]
     public Image FillBar;
-
+    public Image fuelFillImage; // Reference to the UI Image component representing the fill 
+    public GameObject CarFuelObj; // Reference to the UI Image component representing the fill 
     [Header("----- PopUps -------")]
     public GameObject SellPanel;
     public GameObject BuyFuelStation;
@@ -39,7 +41,10 @@ public class UiManager : MonoBehaviour
     public GameObject fadeScreen;
     public GameObject okButton;
     public GameObject UpgradePumpPanel;
+    public GameObject MainUpgradePumpObject;
+    public GameObject UpgradePumpBtn;
     public GameObject AddMarketPanel;
+    public GameObject[] UpgradePumpOwnAndNext;
     // public GameObject ObjectivePannel;
     [Space(20)]
     [Header("------ Text ------")]
@@ -64,6 +69,8 @@ public class UiManager : MonoBehaviour
     public Text MainItemTotal;
     public Text[] ItemNameTxt;
     public Text[] ItemAmountTxt;
+    public Image UpgradeItemImg;
+    public Sprite[] UpgradeItemSprites;
     public Image[] ItemImage;
     public Button[] AddButton;
 

@@ -16,6 +16,15 @@ public class CarActivator : MonoBehaviour
     }
     public void ActiveRandomCar()
     {
-        CarsObjects[Random.Range(0, CarsObjects.Length)].SetActive(true);
+        int rand = Random.Range(0, CarsObjects.Length);
+        CarsObjects[rand].GetComponent<CarEssentials>().splineMove.Stop();
+        StartCoroutine(ActiveCars(rand));
+    }
+    IEnumerator ActiveCars(int rand)
+    {
+     
+        yield return new WaitForSeconds(Random.Range(3, 8));
+        CarsObjects[rand].GetComponent<CarEssentials>().splineMove.StartMove();
+        CarsObjects[rand].SetActive(true);
     }
 }

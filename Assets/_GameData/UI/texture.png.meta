@@ -131,8 +131,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48c3cf75a51bfbf4ba5f0b07b45cb315
-      internalID: -1822721710
+      spriteID: 028d8257ef8cf8b4b8f324b6aa55f768
+      internalID: 1047466435
       vertices: []
       indices: 
       edges: []
@@ -152,8 +152,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62e7cad520615cd45a62cb0cbaccb0e5
-      internalID: 1960050606
+      spriteID: 2497a155ac5de3f45b3c1200415072d6
+      internalID: 1476990005
       vertices: []
       indices: 
       edges: []
@@ -168,13 +168,13 @@ TextureImporter:
         height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 6, y: 8, z: 8, w: 8}
+      border: {x: 12, y: 11, z: 11, w: 9}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 08744b79cd41b314aa09f1362ee65ba0
-      internalID: -870464852
+      spriteID: 6dd04a69044121b43af0d6957262ce50
+      internalID: -1252771898
       vertices: []
       indices: 
       edges: []
@@ -194,8 +194,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2174d983da17ecf46885d582e2b764b6
-      internalID: -733123753
+      spriteID: 5eff7099d3d4a8844a40dd376d76b34f
+      internalID: 2030701566
       vertices: []
       indices: 
       edges: []
@@ -215,8 +215,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 00a606d88f3803a47a1eedb06e7918f9
-      internalID: 84208213
+      spriteID: ce20a5bd505f63746ad820feea9766f5
+      internalID: 114975113
       vertices: []
       indices: 
       edges: []
@@ -236,8 +236,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81442504e391e2d45b01902b78c07f4c
-      internalID: -1053047112
+      spriteID: af7f28393223f864488ea4ab68daaf68
+      internalID: 893031299
       vertices: []
       indices: 
       edges: []
@@ -252,13 +252,13 @@ TextureImporter:
         height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 7, z: 11, w: 8}
+      border: {x: 45, y: 11, z: 10, w: 11}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eefb2e2c599b1fb4ab8b17417b603a24
-      internalID: 906770894
+      spriteID: d5660600688cbcd48998435fafc25732
+      internalID: 104612053
       vertices: []
       indices: 
       edges: []
@@ -273,13 +273,13 @@ TextureImporter:
         height: 97
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 11, y: 14, z: 11, w: 13}
+      border: {x: 15, y: 15, z: 14, w: 15}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62ed196908286f742a6bbadc6a8d544e
-      internalID: -1145323006
+      spriteID: 08a0b7d6b5bc3ff4294207a9290112f3
+      internalID: -415708485
       vertices: []
       indices: 
       edges: []
@@ -299,8 +299,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 450d0f6c51d52514aae7c9801ad0d4a8
-      internalID: -1742031126
+      spriteID: 7b9df3acb6310be4c9cb7c7c4e0abfb8
+      internalID: 1129486952
       vertices: []
       indices: 
       edges: []
@@ -320,8 +320,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18560cc5dae923c4b939701293091d28
-      internalID: 1206247878
+      spriteID: 3b0fb5deaa65ff24fb3f9be0d64a6cdb
+      internalID: 2788483
       vertices: []
       indices: 
       edges: []
@@ -341,8 +341,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c92da990d6b7864080a14ad92f13df2
-      internalID: 921225936
+      spriteID: ad8f62b36a161cd48b6cdcd7ca433e59
+      internalID: -1023417024
       vertices: []
       indices: 
       edges: []
@@ -362,8 +362,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 985b7020e13d82a4cbf746d1d72b05b1
-      internalID: -154239286
+      spriteID: 49abf56dac85e814aa8e068ceae45bd3
+      internalID: 220400386
       vertices: []
       indices: 
       edges: []
@@ -383,8 +383,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90ac0e872de102f458cfccb373018f6a
-      internalID: 1240005329
+      spriteID: 43f40a248751c4040a26e29727a82a36
+      internalID: 816639086
       vertices: []
       indices: 
       edges: []
@@ -404,8 +404,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 990ba7e92d42b9d49a550da00028a774
-      internalID: 1270995354
+      spriteID: c62558f65f9d4ee4cac0d7727c4e8ffa
+      internalID: -187751358
       vertices: []
       indices: 
       edges: []
@@ -420,13 +420,13 @@ TextureImporter:
         height: 97
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 9, y: 14, z: 12, w: 13}
+      border: {x: 17, y: 11, z: 18, w: 13}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e8375bff78f6eb4ba873fbb39c8aa51
-      internalID: -648268322
+      spriteID: d8e6809554377a542971e7619b3793ac
+      internalID: 1282417199
       vertices: []
       indices: 
       edges: []
@@ -446,8 +446,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c2159fbaaa7cb74b88aaaec0c190dd7
-      internalID: -857949382
+      spriteID: 86fa559e0e42a3a4c8785f38b95b52d1
+      internalID: -265291601
       vertices: []
       indices: 
       edges: []
@@ -463,22 +463,22 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      coin bar .png: 84208213
-      dirt button .png: -1053047112
-      hader .png: -1742031126
-      bar .png: 1960050606
-      emt bar .png: 906770894
-      yellow button .png: -648268322
-      ball .png: -1822721710
-      runing .png: 1240005329
-      jo .png: 1206247878
-      Z .png: -857949382
-      bar 2 .png: -870464852
-      pause button .png: 921225936
-      green button .png: -1145323006
-      plus .png: -154239286
-      timer buttton .png: 1270995354
-      coin .png: -733123753
+      coin bar .png: 114975113
+      dirt button .png: 893031299
+      hader .png: 1129486952
+      bar .png: 1476990005
+      emt bar .png: 104612053
+      yellow button .png: 1282417199
+      ball .png: 1047466435
+      runing .png: 816639086
+      jo .png: 2788483
+      Z .png: -265291601
+      bar 2 .png: -1252771898
+      pause button .png: -1023417024
+      green button .png: -415708485
+      plus .png: 220400386
+      timer buttton .png: -187751358
+      coin .png: 2030701566
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

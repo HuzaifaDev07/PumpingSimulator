@@ -1,0 +1,21 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# https://assetstore.unity.com/packages/tools/sprite-management/texturepacker-importer-16641
+#
+# created with Free texture packer v0.6.7
+# http://free-tex-packer.com
+#
+:format=40300
+:texture=cards.png
+:size=1024x1024
+:pivotpoints=enabled
+:borders=disabled
+
+Mart new card .png;2;683;342;339; 0.5;0.5; 0;0;0;0
+floor new card .png;348;683;342;339; 0.5;0.5; 0;0;0;0
+Mart old card .png;694;717;308;305; 0.5;0.5; 0;0;0;0
+floor old card .png;694;408;308;305; 0.5;0.5; 0;0;0;0
+fuel new card .png;2;65;342;339; 0.5;0.5; 0;0;0;0
+fuel old card .png;348;374;308;305; 0.5;0.5; 0;0;0;0

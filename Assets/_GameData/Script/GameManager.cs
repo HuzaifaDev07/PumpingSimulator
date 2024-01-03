@@ -18,6 +18,8 @@ public class UpgradeItems
     public bool TrashTask;
     [TextArea]
     public string UpgradeItemObjective;
+    [TextArea]
+    public string TaskToDo;
 }
 
 [System.Serializable]
@@ -63,6 +65,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject FuelDecreaser;
     [SerializeField] GameObject UpgradeNewPumpScene;
     [SerializeField] GameObject marketObject;
+    [SerializeField] GameObject TaskTutorial;
+    [SerializeField] GameObject OldPumpTank;
     bool LoadInGameAd = true;
     public static bool NotEnoughFuel = false;
 
@@ -133,6 +137,14 @@ public class GameManager : MonoBehaviour
             playerManager.transform.rotation = PlayerSpawn.rotation;
             ShowObjective(PrefData.GetTask());
         }
+        if (PrefData.GetTask() > 1)
+        {
+            OldPumpTank.SetActive(true);
+        }
+        else
+        {
+            OldPumpTank.SetActive(false);
+        }
 
         if (PrefData.GetTask() == 4)
         {
@@ -152,7 +164,7 @@ public class GameManager : MonoBehaviour
             marketManager.OpenShop();
             playerCounterPos.SetActive(true);
         }
-       
+
 
         refCoroutine = StartCoroutine(ShowAd());
     }
@@ -161,7 +173,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < _upgradeItems.Length; i++)
         {
-            if (i <= PrefData.GetPumpUpgrade())
+            if (i < PrefData.GetPumpUpgrade())
             {
                 for (int j = 0; j < _upgradeItems[i].ActiveObject.Length; j++)
                 {
@@ -172,7 +184,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < _upgradeItems.Length; i++)
         {
-            if (i <= PrefData.GetPumpUpgrade())
+            if (i < PrefData.GetPumpUpgrade())
             {
                 for (int j = 0; j < _upgradeItems[i].DisableObject.Length; j++)
                 {
@@ -189,8 +201,26 @@ public class GameManager : MonoBehaviour
 
     public void ShowUpgradePumpPopUp()
     {
+        _uiManager.UpgradePumpBtn.SetActive(true);
+        _uiManager.UpgradeItemImg.sprite = _uiManager.UpgradeItemSprites[PrefData.GetPumpUpgrade()];
+
+    }
+    public void OpenUpgradePanel()
+    {
+        for (int i = 0; i < _uiManager.UpgradePumpOwnAndNext.Length; i++)
+        {
+            if (i == PrefData.GetPumpUpgrade())
+            {
+                _uiManager.UpgradePumpOwnAndNext[i].SetActive(true);
+            }
+            else
+            {
+                _uiManager.UpgradePumpOwnAndNext[i].SetActive(false);
+            }
+        }
+
         _uiManager.UpgradePumpPanel.SetActive(true);
-        _uiManager.UpgradePumpObject.text = _upgradeItems[PrefData.GetPumpUpgrade()].UpgradeItemObjective;
+        _uiManager.UpgradePumpObject.text = "Buy :" + _upgradeItems[PrefData.GetPumpUpgrade()].UpgradeAmount;
     }
 
     public void ShowObjective(int index)
@@ -447,9 +477,10 @@ public class GameManager : MonoBehaviour
 
     public void FillFuel()
     {
-
         //fuelMeterDisplay.StartFuelMeter();
+        playerManager.GetComponent<CharacterController>().enabled = true;
         _uiManager.putPumpinCar.SetActive(false);
+        _uiManager.Joystick.SetActive(true);
         objectDetect.enabled = false;
         objectDetect.DetectObject.transform.SetParent(objectDetect.CarDetectRef.GetComponent<CarEssentials>().PumpPlaceArea);
         objectDetect.DetectObject.transform.position =
@@ -462,7 +493,61 @@ public class GameManager : MonoBehaviour
 
     IEnumerator TankFilled()
     {
-        yield return new WaitForSeconds(FuelSystem.GetFuelTime());
+        float fuelTime = FuelSystem.GetFuelTime();
+
+        // Tween the fill amount of the fuelFillImage from 0 to 1 over the fuelTime duration
+        _uiManager.CarFuelObj.SetActive(true);
+        _uiManager.fuelFillImage.DOFillAmount(1f, fuelTime).SetEase(Ease.Linear);
+
+        yield return new WaitForSeconds(fuelTime);
+
+        // Reset the fill amount and show the FuelFilledPopUp
+        _uiManager.fuelFillImage.fillAmount = 0f;
+
+        _uiManager.FuelFilledPopUp.SetActive(true);
+        _uiManager.FuelFilledPopUp.transform.DOScale(Vector3.one, 0.5f);
+    }
+
+
+    //IEnumerator TankFilled()
+    //{
+    //    yield return new WaitForSeconds(FuelSystem.GetFuelTime());
+    //    _uiManager.FuelFilledPopUp.SetActive(true);
+    //    _uiManager.FuelFilledPopUp.transform.DOScale(Vector3.one, 0.5f);
+    //}
+
+    public void UpgradePump()
+    {
+        if (PrefData.GetCash() >= _upgradeItems[PrefData.GetPumpUpgrade()].UpgradeAmount)
+        {
+            TaskCounter = 0;
+            playerManager.gameObject.SetActive(false);
+            _uiManager.UpdateCash(_upgradeItems[PrefData.GetPumpUpgrade()].UpgradeAmount);
+            _uiManager.UpgradePumpPanel.SetActive(false);
+            CheckInGameAdState(false);
+            AdsManager.Instance.ShowInterstitial("UpgradePump");
+            PrefData.SetPumpUpgrade(true, 1);
+            ActiveUpgradeEnvAssets();
+            TaskCounterUpdate();
+            _uiManager.Canvas.SetActive(false);
+            _uiManager.MainUpgradePumpObject.SetActive(false);
+            _uiManager.UpgradePumpBtn.SetActive(false);
+            StartCoroutine(ReloadScene());
+        }
+        else
+        {
+            MobileToast.Show("Not Enough Money", false);
+        }
+    }
+    IEnumerator ReloadScene()
+    {
+        yield return new WaitForSeconds(4);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void Okay() // after fuel filled pop up close
+    {
+        _uiManager.CarFuelObj.SetActive(false);
         if (!_upgradeItems[PrefData.GetPumpUpgrade()].TrashTask)
         {
             TaskCounter++;
@@ -474,37 +559,20 @@ public class GameManager : MonoBehaviour
         TaskCounterUpdate();
         playerManager.GetComponent<CharacterController>().enabled = true;
         playerManager.transform.SetParent(null);
-        _uiManager.FuelFilledPopUp.SetActive(true);
-        _uiManager.FuelFilledPopUp.transform.DOScale(Vector3.one, 0.5f);
-        _uiManager.ControlBtns.SetActive(false);
+
+        _uiManager.ControlBtns.SetActive(true);
         objectDetect.DetectObject.transform.SetParent(null);
         _uiManager.UpdateCash(FuelSystem.GetFuelEarnAmount(), true);
         Instantiate(_uiManager.EarnMoney, _uiManager.Canvas.transform);
         objectDetect.DetectObject.transform.SetPositionAndRotation(OldGasPumpReturnPos.position, OldGasPumpReturnPos.rotation);
         objectDetect.CarDetectRef.GetComponent<CarEssentials>().StartMoveCar();
         objectDetect.enabled = true;
-        //if (PrefData.GetTask() == 3)
-        //{
-        //    PrefData.SetTask(false, 4);
-        //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        //}
+        if (PrefData.GetTask() == 3 && PrefData.GetPumpUpgrade() >= 3)
+        {
+            PrefData.SetTask(false, 4);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
         PumpPick = false;
-    }
-
-    public void UpgradePump()
-    {
-        TaskCounter = 0;
-        _uiManager.UpgradePumpPanel.SetActive(false);
-        CheckInGameAdState(false);
-        AdsManager.Instance.ShowInterstitial("UpgradePump");
-        ActiveUpgradeEnvAssets();
-        PrefData.SetPumpUpgrade(true, 1);
-        TaskCounterUpdate();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void Okay() // after fuel filled pop up close
-    {
         _uiManager.FuelFilledPopUp.transform.DOScale(Vector3.zero, 0.5f);
         StartCoroutine(DisableFuelFilledPopUp());
     }
@@ -673,22 +741,38 @@ public class GameManager : MonoBehaviour
     [Space(20)]
     [Header(" ------  Counter --------")]
     public GameObject TaskObjective;
+    public Text TaskObjectiveTxt;
     public int TaskCounter;
     public Text TaskText;
     bool block;
     public void TaskCounterUpdate()
     {
-        TaskObjective.SetActive(true);
-        TaskText.text = TaskCounter + "/" + _upgradeItems[PrefData.GetPumpUpgrade()].ToDoForUpgrade;
-        if (_upgradeItems[PrefData.GetPumpUpgrade()].TrashTask && !block)
+        if (PrefData.GetPumpUpgrade() < 3)
         {
-            block = true;
-            for (int i = 0; i < TrashBags.Length; i++)
+            if (PlayerPrefs.GetInt("TaskTutorial") == 0)
             {
-                TrashBags[i].gameObject.SetActive(true);
-                TrashBags[i].hudNavigationElement.enabled = true;
+                PlayerPrefs.SetInt("TaskTutorial", 1);
+                TaskTutorial.SetActive(true);
+
+            }
+            else
+            {
+                TaskTutorial.SetActive(false);
             }
 
+            TaskObjectiveTxt.text = _upgradeItems[PrefData.GetPumpUpgrade()].TaskToDo;
+            TaskObjective.SetActive(true);
+            TaskText.text = TaskCounter + "/" + _upgradeItems[PrefData.GetPumpUpgrade()].ToDoForUpgrade;
+            if (_upgradeItems[PrefData.GetPumpUpgrade()].TrashTask && !block)
+            {
+                block = true;
+                for (int i = 0; i < TrashBags.Length; i++)
+                {
+                    TrashBags[i].gameObject.SetActive(true);
+                    TrashBags[i].hudNavigationElement.enabled = true;
+                }
+
+            }
         }
     }
 

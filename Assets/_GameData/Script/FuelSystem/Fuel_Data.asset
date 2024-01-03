@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fuelingData:
   - FuelAmount: 50
-    FillTime: 3
+    FillTime: 10
     FuelingEarn: 50
   - FuelAmount: 80
-    FillTime: 3
+    FillTime: 10
     FuelingEarn: 68
   - FuelAmount: 90
-    FillTime: 3
+    FillTime: 10
     FuelingEarn: 70
   - FuelAmount: 110
-    FillTime: 3
+    FillTime: 10
     FuelingEarn: 90
   - FuelAmount: 120
-    FillTime: 3
+    FillTime: 10
     FuelingEarn: 150

@@ -5,23 +5,21 @@ public static class NumberConverter
 {
     public static string ConvertNumberToShortFormat(float number)
     {
-        long longNumber = (long)number;
-
-        if (longNumber >= 1000000000)
+        if (number >= 1000000000)
         {
-            return $"{longNumber / 1000000000},{Math.Abs((longNumber % 1000000000) / 10000000):D2}$b";
+            return (number / 1000000000f).ToString("F8") + "B";
         }
-        else if (longNumber >= 1000000)
+        else if (number >= 1000000)
         {
-            return $"{longNumber / 1000000},{Math.Abs((longNumber % 1000000) / 10000):D2}$m";
+            return (number / 1000000f).ToString("F6") + "M";
         }
-        else if (longNumber >= 1000)
+        else if (number >= 1000)
         {
-            return $"{longNumber / 1000},{Math.Abs((longNumber % 1000) / 10):D1}$k";
+            return (number / 1000f).ToString("F3") + "k";
         }
         else
         {
-            return longNumber.ToString("D");
+            return number.ToString("F0");
         }
     }
 
